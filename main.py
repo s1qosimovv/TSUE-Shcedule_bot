@@ -1,9 +1,5 @@
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, InputFile
 from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import time
 import asyncio
@@ -1483,22 +1479,6 @@ GROUP_IDS = {
 GROUPS_LIST = sorted(GROUP_IDS.keys())
 print(f"✅ {len(GROUP_IDS)} ta guruh ID yuklandi")
 
-_driver = None
-
-
-def get_driver():
-    """Selenium driver"""
-    global _driver
-    if _driver is None:
-        options = Options()
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-
-        service = Service(ChromeDriverManager().install())
-        _driver = webdriver.Chrome(service=service, options=options)
-    return _driver
-
 
 from playwright.sync_api import sync_playwright
 
@@ -1700,7 +1680,6 @@ def message_handler(update, context):
         )
 
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
 def main():
     print("============================================================")
