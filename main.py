@@ -1579,15 +1579,15 @@ def guruh_tanlash(update, context):
     )
 
 
-async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def callback_handler(update, context):
     """Callback"""
     query = update.callback_query
-    await query.answer()
+    query.answer()
 
     if query.data.startswith("g_"):
         guruh = query.data[2:]
         context.user_data["guruh"] = guruh
-        await query.edit_message_text(
+        query.edit_message_text(
             f"✅ *{guruh}* tanlandi!\n\n" f"📅 'Bugun' tugmasini bosing.",
             parse_mode="Markdown",
         )
