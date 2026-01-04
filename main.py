@@ -1700,6 +1700,8 @@ def message_handler(update, context):
         )
 
 
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+
 def main():
     print("============================================================")
     print("🎓 TSUE Jadval Bot")
@@ -1708,13 +1710,12 @@ def main():
     print("============================================================")
 
     updater = Updater(BOT_TOKEN, use_context=True)
-    dispatcher = updater.dispatcher
+    dp = updater.dispatcher
 
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CallbackQueryHandler(callback_handler))
-    dispatcher.add_handler(
-        MessageHandler(Filters.text & ~Filters.command, message_handler)
-    )
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("guruh", guruh_tanlash))
+    dp.add_handler(CallbackQueryHandler(callback_handler))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
 
     print("✅ Ishga tushdi!")
     updater.start_polling()
