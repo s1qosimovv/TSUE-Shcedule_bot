@@ -1,5 +1,5 @@
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, InputFile
-from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
+from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -9,7 +9,7 @@ import time
 import asyncio
 import os
 
-BOT_TOKEN = ("8544426017:AAHUGTzCxwPG_JmYJ48Mp6yGTVv9FYD2fuM")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
 # GROUP_IDS lug'ati (Siz bergan versiya)
@@ -1530,7 +1530,7 @@ def take_timetable_screenshot(group_name: str):
         return None, str(e)
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+ def start(update, context):
     """Start"""
     keyboard = [
         [KeyboardButton("📅 Bugun"), KeyboardButton("🔍 Guruh Tanlash")],
@@ -1538,7 +1538,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
-    await update.message.reply_text(
+     update.message.reply_text(
         "🎓 *TSUE Dars Jadvali Bot*\n\n"
         "Assalomu alaykum! 👋\n\n"
        "📌 Ushbu bot orqali siz\n"
@@ -1720,7 +1720,7 @@ def main():
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(callback_handler))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+    app.add_handler(MessageHandler(Filters.text & ~filters.COMMAND, message_handler))
 
     print("✅ Ishga tushdi!")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
