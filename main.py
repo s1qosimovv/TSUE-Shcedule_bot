@@ -1500,33 +1500,24 @@ def get_driver():
     return _driver
 
 
-def take_timetable_screenshot(group_name: str):
-    """Jadval rasmini olish"""
+from playwright.sync_api import sync_playwright
+
+def take_timetable_screenshot(guruh):
     try:
-        if group_name not in GROUP_IDS:
-            return None, "ID topilmadi"
+        url = f"{BASE_URL}{GROUP_IDS[guruh]}"
+        file_path = f"/tmp/{guruh}.png"
 
-        group_id = GROUP_IDS[group_name]
-        url = f"{BASE_URL}{group_id}"
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page.goto(url, timeout=60000)
+            page.wait_for_timeout(5000)
+            page.screenshot(path=file_path, full_page=True)
+            browser.close()
 
-        print(f"📸 {group_name} screenshot olinmoqda...")
-
-        driver = get_driver()
-        driver.set_window_size(1920, 1080)
-        driver.get(url)
-        time.sleep(6)
-
-        # Screenshot fayl nomi
-        filename = f"jadval_{group_name.replace('/', '_')}.png"
-        filepath = os.path.join(os.getcwd(), filename)
-
-        driver.save_screenshot(filepath)
-        print(f"✅ Screenshot saqlandi: {filepath}")
-
-        return filepath, None
+        return file_path, None
 
     except Exception as e:
-        print(f"❌ Screenshot xatolik: {e}")
         return None, str(e)
 
 
