@@ -1710,21 +1710,24 @@ def message_handler(update, context):
 
 
 def main():
-    """Main"""
-    print("=" * 60)
+    print("============================================================")
     print("🎓 TSUE Jadval Bot")
     print(f"📊 {len(GROUP_IDS)} ta guruh/element")
     print("📸 Screenshot rejimi")
-    print("=" * 60)
+    print("============================================================")
 
-    app = Application.builder().token(BOT_TOKEN).build()
+    updater = Updater(BOT_TOKEN, use_context=True)
+    dispatcher = updater.dispatcher
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(callback_handler))
-    app.add_handler(MessageHandler(Filters.text & ~filters.COMMAND, message_handler))
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CallbackQueryHandler(callback_handler))
+    dispatcher.add_handler(
+        MessageHandler(Filters.text & ~Filters.command, message_handler)
+    )
 
     print("✅ Ishga tushdi!")
-    app.run_polling(allowed_updates=Update.ALL_TYPES)
+    updater.start_polling()
+    updater.idle()
 
 
 if __name__ == "__main__":
