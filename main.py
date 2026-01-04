@@ -1593,34 +1593,32 @@ def callback_handler(update, context):
         )
 
 
-async def bugun_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def bugun_handler(update, context):
     """Bugungi darslar - RASM bilan"""
     guruh = context.user_data.get("guruh")
 
     if not guruh:
-        await update.message.reply_text("❌ Avval guruh tanlang!")
+        update.message.reply_text("❌ Avval guruh tanlang!")
         return
 
     if guruh not in GROUP_IDS:
-        await update.message.reply_text(f"⚠️ {guruh} topilmadi. To'g'ri yozing.")
+        update.message.reply_text(f"⚠️ {guruh} topilmadi. To‘g‘ri yozing.")
         return
 
-    msg = await update.message.reply_text("📸 Jadval rasmi olinmoqda...")
+    msg = update.message.reply_text("📸 Jadval rasmi olinmoqda...")
 
-    # Screenshot olish
-    loop = asyncio.get_event_loop()
-    filepath, error = await loop.run_in_executor(None, take_timetable_screenshot, guruh)
+    # Screenshot olish (oddiy, sync)
+    filepath, error = take_timetable_screenshot(guruh)
 
     if error or not filepath:
-        await msg.edit_text(
-            f"❌ Rasm olinmadi\n\n"
+        msg.edit_text(
+            "❌ Rasm olinmadi\n\n"
             f"Xatolik: {error}\n\n"
-            f"🔗 Saytda ko'ring:\n"
+            "🔗 Saytda ko‘ring:\n"
             f"{BASE_URL}{GROUP_IDS[guruh]}"
         )
         return
 
-    # Rasmni yuborish
     try:
         kun = datetime.now().weekday()
         kunlar = [
@@ -1634,29 +1632,28 @@ async def bugun_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
 
         caption = (
-            f"📅 *Bugungi jadval*\n"
+            "📅 *Bugungi jadval*\n"
             f"👥 *{guruh}*\n"
             f"📆 {kunlar[kun]}\n\n"
-            f"🔗 [Saytda ko'rish]({BASE_URL}{GROUP_IDS[guruh]})"
+            f"🔗 [Saytda ko‘rish]({BASE_URL}{GROUP_IDS[guruh]})"
         )
 
         with open(filepath, "rb") as photo:
-            await update.message.reply_photo(
+            update.message.reply_photo(
                 photo=photo,
                 caption=caption,
                 parse_mode="Markdown",
             )
 
-        await msg.delete()
+        msg.delete()
 
-        # Faylni o'chirish
         try:
             os.remove(filepath)
         except Exception:
             pass
 
     except Exception as e:
-        await msg.edit_text(f"❌ Rasm yuborishda xatolik: {e}")
+        msg.edit_text(f"❌ Rasm yuborishda xatolik: {e}")
 
 
 async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
