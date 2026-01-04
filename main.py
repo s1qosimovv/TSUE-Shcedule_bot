@@ -1530,7 +1530,7 @@ def take_timetable_screenshot(group_name: str):
         return None, str(e)
 
 
- def start(update, context):
+def start(update, context):
     """Start"""
     keyboard = [
         [KeyboardButton("📅 Bugun"), KeyboardButton("🔍 Guruh Tanlash")],
@@ -1538,7 +1538,7 @@ def take_timetable_screenshot(group_name: str):
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
-     update.message.reply_text(
+    update.message.reply_text(
         "🎓 *TSUE Dars Jadvali Bot*\n\n"
         "Assalomu alaykum! 👋\n\n"
        "📌 Ushbu bot orqali siz\n"
