@@ -1553,26 +1553,27 @@ def start(update, context):
     )
 
 
-async def guruh_tanlash(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def guruh_tanlash(update, context):
     """Guruhlar"""
     keyboard = []
 
     # Mashhur guruhlar
-    popular = ["RST-88/25",]
+    popular = ["RST-88/25"]
 
     for g in popular:
         if g in GROUP_IDS:
             keyboard.append([
                 InlineKeyboardButton(
-                    f"{g} (ID: {GROUP_IDS[g]})", callback_data=f"g_{g}"
+                    f"{g} (ID: {GROUP_IDS[g]})",
+                    callback_data=f"g_{g}"
                 )
             ])
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    await update.message.reply_text(
-        f"Guruh nomini yozing:\n"
-        f"Masalan: `RST-88/25`",
+    update.message.reply_text(
+        "Guruh nomini yozing:\n"
+        "Masalan: `RST-88/25`",
         reply_markup=reply_markup,
         parse_mode="Markdown",
     )
