@@ -1656,54 +1656,57 @@ def bugun_handler(update, context):
         msg.edit_text(f"❌ Rasm yuborishda xatolik: {e}")
 
 
-async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def message_handler(update, context):
     """Messages"""
     text = update.message.text
 
     if text == "📅 Bugun":
-        await bugun_handler(update, context)
+        bugun_handler(update, context)
+
     elif text == "ℹ️ Yordam":
-        await update.message.reply_text(
-        "🆘 *YORDAM BO‘LIMI*\n"
-        "━━━━━━━━━━━━━━━━━━\n\n"
-        "🎓 *Bu bot nima qiladi?*\n"
-        "— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n"
-        "📌 *Qanday foydalaniladi?*\n"
-        "1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n"
-        "2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n"
-        "3️⃣ `📅 Bugun` tugmasini bosing\n\n"
-        "📸 Natija:\n"
-        "— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n"
-        "⚠️ *Eslatma:*\n"
-        "— Avval guruh tanlanmasa, jadval chiqmaydi\n"
-        "— Guruh nomini to‘g‘ri yozing\n\n"
-        "👨‍💻 *Aloqa & takliflar:*\n"
-        "👉 @sqosimovv\n\n"
-        "━━━━━━━━━━━━━━━━━━\n"
-        "✨ Botdan unumli foydalaning!",
-        parse_mode="Markdown",
-    )
+        update.message.reply_text(
+            "🆘 *YORDAM BO‘LIMI*\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            "🎓 *Bu bot nima qiladi?*\n"
+            "— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n"
+            "📌 *Qanday foydalaniladi?*\n"
+            "1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n"
+            "2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n"
+            "3️⃣ `📅 Bugun` tugmasini bosing\n\n"
+            "📸 Natija:\n"
+            "— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n"
+            "⚠️ *Eslatma:*\n"
+            "— Avval guruh tanlanmasa, jadval chiqmaydi\n"
+            "— Guruh nomini to‘g‘ri yozing\n\n"
+            "👨‍💻 *Aloqa & takliflar:*\n"
+            "👉 @sqosimovv\n\n"
+            "━━━━━━━━━━━━━━━━━━\n"
+            "✨ Botdan unumli foydalaning!",
+            parse_mode="Markdown",
+        )
+
     else:
         # Guruh nomini tekshirish
-        if text.upper() in [g.upper() for g in GROUP_IDS.keys()]:
-            for g in GROUP_IDS.keys():
-                if g.upper() == text.upper():
-                    context.user_data["guruh"] = g
-                    await update.message.reply_text(
-                        f"✅ *{g}* guruhi tanlandi!\n\n"
-                        "📅 Endi *`Bugun`* tugmasini bosing\n"
-                        "va dars jadvalingizni ko‘ring 👇",
-                         parse_mode="Markdown",
-                    )
-                    break
-        else:
-            await update.message.reply_text(
-                 "👋 Assalomu alaykum!\n\n"
-                 "📌 Dars jadvalini ko‘rish uchun avval *guruhingizni tanlang*.\n\n"
-                 "✍️ Guruh nomini yozishingiz mumkin:\n"
-                 "`RST-88/25`\n\n",
-                 parse_mode="Markdown",
-)
+        user_text = text.strip().upper()
+
+        for g in GROUP_IDS.keys():
+            if g.upper() == user_text:
+                context.user_data["guruh"] = g
+                update.message.reply_text(
+                    f"✅ *{g}* guruhi tanlandi!\n\n"
+                    "📅 Endi *Bugun* tugmasini bosing\n"
+                    "va dars jadvalingizni ko‘ring 👇",
+                    parse_mode="Markdown",
+                )
+                return
+
+        update.message.reply_text(
+            "👋 Assalomu alaykum!\n\n"
+            "📌 Dars jadvalini ko‘rish uchun avval *guruhingizni tanlang*.\n\n"
+            "✍️ Guruh nomini yozishingiz mumkin:\n"
+            "`RST-88/25`",
+            parse_mode="Markdown",
+        )
 
 
 def main():
