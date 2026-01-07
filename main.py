@@ -6,6 +6,7 @@ import asyncio
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
 STRINGS = {
@@ -1905,6 +1906,65 @@ def message_handler(update, context):
         )
 
 
+def stats(update, context):
+    """Bot statistics for Admin"""
+    user = update.effective_user
+    if user.username != ADMIN_USERNAME:
+        return
+
+    # Count entries in dispatcher.user_data
+    total_users = len(context.dispatcher.user_data)
+    
+    # Count how many have notifications active
+    notif_users = 0
+    for u_id in context.dispatcher.user_data:
+        if context.dispatcher.user_data[u_id].get("notif_enabled", False):
+            notif_users += 1
+
+    msg = (
+        "📊 *Bot statistikasi:*\n\n"
+        f"👥 Umumiy foydalanuvchilar: `{total_users}`\n"
+        f"🔔 Eslatma yoqqanlar: `{notif_users}`"
+    )
+    update.message.reply_text(msg, parse_mode="Markdown")
+
+
+def broadcast(update, context):
+    """Send message to all users - Admin only"""
+    user = update.effective_user
+    if user.username != ADMIN_USERNAME:
+        return
+
+    # Get the message after /send
+    text = update.message.text.replace("/send", "").strip()
+    
+    if not text:
+        update.message.reply_text("❌ Xabar yozilmagan. Masalan: `/send Salom talabalar!`", parse_mode="Markdown")
+        return
+
+    msg = update.message.reply_text(f"🚀 Xabar yuborish boshlandi...")
+    
+    chat_ids = context.dispatcher.user_data.keys()
+    success = 0
+    failed = 0
+    
+    for chat_id in chat_ids:
+        try:
+            context.bot.send_message(chat_id=chat_id, text=text, parse_mode="Markdown")
+            success += 1
+            # Add small delay to avoid flood
+            time.sleep(0.05)
+        except Exception:
+            failed += 1
+            
+    msg.edit_text(
+        f"✅ Yuborish yakunlandi!\n\n"
+        f"➕ Muvaffaqiyatli: `{success}`\n"
+        f"➖ Muvaffaqiyatsiz: `{failed}`",
+        parse_mode="Markdown"
+    )
+
+
 
 def main():
     print("============================================================")
@@ -1939,6 +1999,8 @@ def main():
                 )
 
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("stats", stats))
+    dp.add_handler(CommandHandler("send", broadcast))
     dp.add_handler(CommandHandler("guruh", guruh_tanlash))
     dp.add_handler(CallbackQueryHandler(callback_handler))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
