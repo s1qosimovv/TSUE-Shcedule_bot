@@ -2,7 +2,7 @@
 providers = ["python"]
 
 [phases.setup]
-nixPkgs = ["python310", "chromium", "glib", "nss", "nspr", "atk", "at-spi2-atk", "libdrm", "expat", "xorg.libxcb", "libxkbcommon", "xorg.libX11", "xorg.libXcomposite", "xorg.libXdamage", "xorg.libXext", "xorg.libXfixes", "xorg.libXrandr", "mesa.libgbm", "pango", "cairo", "alsa-lib"]
+nixPkgs = ["python310", "chromium", "glib", "nss", "nspr", "atk", "at-spi2-atk", "at-spi2-core", "libdrm", "expat", "xorg.libxcb", "libxkbcommon", "xorg.libX11", "xorg.libXcomposite", "xorg.libXdamage", "xorg.libXext", "xorg.libXfixes", "xorg.libXrandr", "xorg.libXi", "xorg.libXrender", "xorg.libXtst", "xorg.libxshmfence", "mesa", "pango", "cairo", "alsa-lib", "fontconfig", "freetype", "dbus", "cups"]
 
 [phases.install]
 cmds = ["pip install -r requirements.txt", "playwright install chromium"]
