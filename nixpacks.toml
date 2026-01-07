@@ -2,10 +2,10 @@
 providers = ["python"]
 
 [phases.setup]
-nixPkgs = ["...", "chromium"]
+nixPkgs = ["...", "chromium", "glib", "nss", "nspr", "atk", "at-spi2-atk", "libdrm", "expat", "libxcb", "libxkbcommon", "libX11", "libXcomposite", "libXdamage", "libXext", "libXfixes", "libXrandr", "libgbm", "pango", "cairo", "asound2"]
 
 [phases.install]
-cmds = ["pip install -r requirements.txt", "playwright install chromium", "playwright install-deps chromium"]
+cmds = ["pip install -r requirements.txt", "playwright install chromium"]
 
 [start]
-cmd = "python main.py"
+cmd = "bash start.sh"

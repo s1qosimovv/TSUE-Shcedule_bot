@@ -12,27 +12,31 @@ BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
 STRINGS = {
     "uz": {
-        "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Ushbu bot orqali siz *dars jadvalingizni rasm ko‘rinishida* ko‘rishingiz mumkin.\n\n👉 Boshlash uchun:\n🔍 *Guruh Tanlash* tugmasini bosing\nyoki guruh nomini yozing (masalan: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Yaratuvchi: @sqosimovv",
+        "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Quyidagi bo'limlardan birini tanlang:",
         "btn_bugun": "📅 Bugun",
         "btn_guruh": "🔍 Guruh Tanlash",
         "btn_yordam": "ℹ️ Yordam",
         "btn_lang": "🌐 Tilni o'zgartirish",
-        "btn_notif": "🔔 Eslatmalar",
+        "btn_notif": "🔔 Eslatmalar Center",
         "btn_notif_on": "✅ Yoqish",
         "btn_notif_off": "❌ O'chirish",
         "btn_back": "⬅️ Orqaga",
+        "btn_timetable": "📅 Dars jadvali",
+        "btn_hemis": "📊 HEMIS",
+        "choose_category": "Quyidagi bo'limlardan birini tanlang:",
         "notif_menu": "🔔 *ESLATMALAR MARKAZI*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Holat:* {}\n\n✨ Har kuni soat *08:00* da dars jadvalingizni avtomatik qabul qilishni xohlaysizmi?\n\n🚀 *Premium qulaylikdan foydalaning!*",
         "notif_status_on": "🟢 Yoqilgan",
         "notif_status_off": "🔴 O'chirilgan",
         "notif_enabled": "✅ *Muvaffaqiyatli!* Eslatmalar yoqildi. Har kuni 08:00 da dars jadvali kutib turing! 📥",
         "notif_disabled": "❌ Eslatmalar o'chirildi.",
-        "btn_hemis": "📊 HEMIS",
-        "hemis_welcome": "📊 *HEMIS Tizimi*\n━━━━━━━━━━━━━━━━━━\n\nBu bo'lim orqali siz baholaringiz (GPA) va NB-laringizni ko'rishingiz mumkin.\n\n⚠️ *Eslatma:* Ma'lumotlarni olish uchun HEMIS login va parolingizni kiritishingiz kerak. Ma'lumotlaringiz xavfsiz saqlanadi.\n\nDavom etish uchun *ID raqamingizni* yozing:",
+        "hemis_welcome": "📊 *HEMIS Tizimi*\n━━━━━━━━━━━━━━━━━━\n\nBu bo'lim orqali siz baholaringiz (GPA) va NB-laringizni ko'rishingiz mumkin.\n\n⚠️ *Eslatma:* Ma'lumotlarni olish uchun login va parolingizni kiritishingiz kerak.\n\nDavom etish uchun *ID raqamingizni* yozing:",
         "hemis_password": "🔐 Endi *parolingizni* yozing:",
         "hemis_loading": "⏳ Ma'lumotlar yuklanmoqda...",
         "hemis_error": "❌ Xatolik yuz berdi: {}\n\nIltimos, ID va parolingizni tekshirib qaytadan urinib ko'ring.",
         "hemis_stats": "📊 *HEMIS Ma'lumotlari*\n━━━━━━━━━━━━━━━━━━\n\n👤 Talaba: *{}*\n🎓 Kurs: *{}*\n📈 GPA: *{}*\n🚫 O'zlashtirish: *{}%*\n\n📉 *NB-lar:* \n— Jami: *{}* ta\n\n📚 *So'nggi baholar:* \n{}",
-        "select_group": "Guruh nomini yozing:\nMasalan: `RST-88/25`",
+        "select_faculty": "🏛 *Fakultetingizni tanlang:*",
+        "select_course": "🎓 *Kursni tanlang:*",
+        "select_group": "👥 *Guruhingizni tanlang:*",
         "group_selected": "✅ *{}* tanlandi!\n\n📅 'Bugun' tugmasini bosing.",
         "no_group": "❌ Avval guruh tanlang!",
         "group_not_found": "⚠️ {} topilmadi. To‘g‘ri yozing.",
@@ -40,33 +44,35 @@ STRINGS = {
         "error_screenshot": "❌ Rasm olinmadi\n\nXatolik: {}\n\n🔗 Saytda ko‘ring:",
         "error_sending": "❌ Rasm yuborishda xatolik: {}",
         "today_caption": "📅 *Bugungi jadval*\n👥 *{}*\n📆 {}\n\n🔗 [Saytda ko‘rish]({})",
-        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalaniladi?*\n1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n3️⃣ `📅 Bugun` tugmasini bosing\n\n📸 Natija:\n— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n⚠️ *Eslatma:*\n— Avval guruh tanlanmasa, jadval chiqmaydi\n— Guruh nomini to‘g‘ri yozing\n\n👨‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Botdan unumli foydalaning!",
+        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalanish qulay?*\n1️⃣ `� Dars jadvali` bo'limiga kiring\n2️⃣ Fakultet va kursingizni tanlang\n3️⃣ `📅 Bugun` tugmasini bosing\n\n‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv",
         "days": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba", "Yakshanba"],
-        "lang_selected": "✅ O'zbek tili tanlandi!",
+        "lang_selected": "✅ Oʻzbek tili tanlandi!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
     },
     "ru": {
-        "welcome": "🎓 *Бот Расписания ТГЭУ*\n\nЗдравствуйте! 👋\n\n📌 С помощью этого бота вы можете увидеть свое *расписание в виде изображения*.\n\n👉 Чтобы начать:\n🔍 Нажмите кнопку *Выбор группы*\nили введите название группы (например: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Создатель: @sqosimovv",
+        "welcome": "🎓 *Бот ТГЭУ*\n\nЗдравствуйте! 👋\n\n📌 Выберите нужный раздел ниже:",
         "btn_bugun": "📅 Сегодня",
-        "btn_guruh": "🔍 Выбор группы",
+        "btn_guruh": "🔍 Поиск группы",
         "btn_yordam": "ℹ️ Помощь",
         "btn_lang": "🌐 Сменить язык",
         "btn_notif": "🔔 Уведомления",
-        "btn_notif_on": "✅ Включить",
-        "btn_notif_off": "❌ Выключить",
         "btn_back": "⬅️ Назад",
+        "btn_timetable": "📅 Расписание",
+        "btn_hemis": "📊 HEMIS",
+        "choose_category": "Выберите один из разделов:",
         "notif_menu": "🔔 *ЦЕНТР УВЕДОМЛЕНИЙ*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Статус:* {}\n\n✨ Хотите получать расписание автоматически каждый день в *08:00*?\n\n🚀 *Пользуйтесь Premium удобством!*",
         "notif_status_on": "🟢 Включено",
         "notif_status_off": "🔴 Выключено",
         "notif_enabled": "✅ *Успешно!* Уведомления включены. Ждите расписание каждый день в 08:00! 📥",
         "notif_disabled": "❌ Уведомления выключены.",
-        "btn_hemis": "📊 HEMIS",
-        "hemis_welcome": "📊 *Система HEMIS*\n━━━━━━━━━━━━━━━━━━\n\nВ этом разделе вы можете увидеть свои оценки (GPA) и пропуски (NB).\n\n⚠️ *Примечание:* Для получения данных необходимо ввести логин и пароль HEMIS. Ваши данные в безопасности.\n\nДля продолжения введите свой *ID номер*:",
+        "hemis_welcome": "📊 *Система HEMIS*\n━━━━━━━━━━━━━━━━━━\n\nВ этом разделе вы можете увидеть свои оценки (GPA) и пропуски (NB).\n\n⚠️ *Примечание:* Для получения данных необходимо ввести логин и пароль.\n\nДля продолжения введите свой *ID номер*:",
         "hemis_password": "🔐 Теперь введите свой *пароль*:",
         "hemis_loading": "⏳ Загрузка данных...",
         "hemis_error": "❌ Произошла ошибка: {}\n\nПожалуйста, проверьте свой ID и пароль и попробуйте еще раз.",
         "hemis_stats": "📊 *Данные HEMIS*\n━━━━━━━━━━━━━━━━━━\n\n👤 Студент: *{}*\n🎓 Курс: *{}*\n📈 GPA: *{}*\n🚫 Успеваемость: *{}%*\n\n📉 *Пропуски (NB):* \n— Всего: *{}*\n\n📚 *Последние оценки:* \n{}",
-        "select_group": "Введите название группы:\nНапример: `RST-88/25`",
+        "select_faculty": "🏛 *Выберите факультет:*",
+        "select_course": "🎓 *Выберите курс:*",
+        "select_group": "👥 *Выберите группу:*",
         "group_selected": "✅ *{}* выбрана!\n\n📅 Нажмите кнопку 'Сегодня'.",
         "no_group": "❌ Сначала выберите группу!",
         "group_not_found": "⚠️ {} не найдена. Введите правильно.",
@@ -74,33 +80,35 @@ STRINGS = {
         "error_screenshot": "❌ Изображение не получено\n\nОшибка: {}\n\n🔗 Посмотреть на сайте:",
         "error_sending": "❌ Ошибка при отправке фото: {}",
         "today_caption": "📅 *Расписание на сегодня*\n👥 *{}*\n📆 {}\n\n🔗 [Посмотреть на сайте]({})",
-        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `🔍 Выбор группы` — выберите свою группу\n2️⃣ Или напишите название группы (например: `RST-88/25`)\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n📸 Результат:\n— Расписание на сегодня будет отправлено в виде *изображения (скриншота)*\n\n⚠️ *Примечание:*\n— Если группа не выбрана заранее, расписание не появится\n— Пишите название группы правильно\n\n👨‍💻 *Контакты и предложения:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Пользуйтесь ботом эффективно!",
+        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `� Расписание` — выберите свой раздел\n2️⃣ Выберите факультет и курс\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n👨‍💻 *Контакты:*\n👉 @sqosimovv",
         "days": ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
         "lang_selected": "✅ Выбран русский язык!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
     },
     "en": {
-        "welcome": "🎓 *TSUE Timetable Bot*\n\nHello! 👋\n\n📌 Through this bot, you can see your *timetable as an image*.\n\n👉 To start:\n🔍 Press the *Select Group* button\nor type the group name (e.g., `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Creator: @sqosimovv",
+        "welcome": "🎓 *TSUE Bot*\n\nHello! 👋\n\n📌 Please select a section below:",
         "btn_bugun": "📅 Today",
-        "btn_guruh": "🔍 Select Group",
+        "btn_guruh": "🔍 Search Group",
         "btn_yordam": "ℹ️ Help",
         "btn_lang": "🌐 Change Language",
         "btn_notif": "🔔 Notifications",
-        "btn_notif_on": "✅ Turn ON",
-        "btn_notif_off": "❌ Turn OFF",
         "btn_back": "⬅️ Back",
+        "btn_timetable": "📅 Timetable",
+        "btn_hemis": "📊 HEMIS",
+        "choose_category": "Choose one of the sections:",
         "notif_menu": "🔔 *NOTIFICATIONS CENTER*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Status:* {}\n\n✨ Want to receive your timetable automatically every day at *08:00*?\n\n🚀 *Enjoy Premium convenience!*",
         "notif_status_on": "🟢 Enabled",
         "notif_status_off": "🔴 Disabled",
         "notif_enabled": "✅ *Success!* Notifications enabled. Expect your timetable every day at 08:00! 📥",
         "notif_disabled": "❌ Notifications disabled.",
-        "btn_hemis": "📊 HEMIS",
-        "hemis_welcome": "📊 *HEMIS System*\n━━━━━━━━━━━━━━━━━━\n\nYou can view your grades (GPA) and absences (NBs) in this section.\n\n⚠️ *Note:* You need to enter your HEMIS ID and password. Your data is handled securely.\n\nPlease enter your *ID number* to continue:",
+        "hemis_welcome": "📊 *HEMIS System*\n━━━━━━━━━━━━━━━━━━\n\nYou can view your grades (GPA) and absences (NBs) in this section.\n\n⚠️ *Note:* You need to enter your HEMIS login and password.\n\nPlease enter your *ID number* to continue:",
         "hemis_password": "🔐 Now enter your *password*:",
         "hemis_loading": "⏳ Loading data...",
         "hemis_error": "❌ An error occurred: {}\n\nPlease check your ID and password and try again.",
         "hemis_stats": "📊 *HEMIS Data*\n━━━━━━━━━━━━━━━━━━\n\n👤 Student: *{}*\n🎓 Course: *{}*\n📈 GPA: *{}*\n🚫 Performance: *{}%*\n\n📉 *Absences (NBs):* \n— Total: *{}*\n\n📚 *Recent Grades:* \n{}",
-        "select_group": "Type the group name:\nFor example: `RST-88/25`",
+        "select_faculty": "🏛 *Select Faculty:*",
+        "select_course": "🎓 *Select Course:*",
+        "select_group": "👥 *Select Group:*",
         "group_selected": "✅ *{}* selected!\n\n📅 Press 'Today'.",
         "no_group": "❌ Select a group first!",
         "group_not_found": "⚠️ {} not found. Type correctly.",
@@ -108,7 +116,7 @@ STRINGS = {
         "error_screenshot": "❌ Image failed\n\nError: {}\n\n🔗 View on site:",
         "error_sending": "❌ Error sending photo: {}",
         "today_caption": "📅 *Today's Timetable*\n👥 *{}*\n📆 {}\n\n🔗 [View on site]({})",
-        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ `🔍 Select Group` — select your group\n2️⃣ Or type the group name (e.g., `RST-88/25`)\n3️⃣ Press the `📅 Today` button\n\n📸 Result:\n— Today's classes will be sent as an *image (screenshot)*\n\n⚠️ *Note:*\n— If a group is not selected first, the schedule won't appear\n— Type the group name correctly\n\n👨‍💻 *Contact & suggestions:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Use the bot productively!",
+        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ Go to `� Timetable` section\n2️⃣ Select your faculty and course\n3️⃣ Press the `📅 Today` button\n\n👨‍💻 *Contact:*\n👉 @sqosimovv",
         "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         "lang_selected": "✅ English language selected!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
@@ -1688,480 +1696,249 @@ def take_timetable_screenshot(guruh):
         return None, str(e)
 
 
+# HIERARCHY ma'lumotlari (Fakultet -> Kurs -> Guruhlar)
+HIERARCHY = {
+    "MENEJMENT FAKULTETI": {
+        "1-KURS": ["MNP-80", "MNP-81", "MNP-82", "MNP-83", "MNP-84", "MNP-85", "MNP-86", "MNP-87", "MNP-88", "MNP-89", "MO-80/25", "MO-81/25", "MO-82/25", "MO-83/25", "MO-84/25", "MO-85/25", "MO-86/25", "MO-87/25", "MO-88/25", "MO-89/25", "LG-80/25", "LG-81/25", "LG-82/25", "LG-83/25", "LG-84/25", "LG-85/25", "BBA-80/25", "BBA-81/25", "BBA-82/25", "BBA-83/25", "BBA-84/25", "BBA-85/25", "BBA-86/25", "BBA-87/25", "BBA-88/25"],
+        "2-KURS": ["MNP-51/24", "MNP-52/24", "MNP-53/24", "MNP-54/24", "MNP-55/24", "MNP-56/24", "MNP-57/24", "MO-50/24", "MO-59/24", "MO-51/24", "MO-52/24", "MO-53/24", "MO-54/24", "MO-55/24", "MO-56/24", "MO-57/24", "MO-58/24", "LG-51/24", "LG-52/24", "BBA-51/24", "BBA-52/24", "BBA-53/24", "BBA-54/24", "BBA-55/24"],
+        "3-KURS": ["MNP-75/23", "MNP-76/23", "MO-75/23", "MO-76/23", "MO-77/23", "KB-75/23", "KB-76/23", "BBA-75/23", "LG-75/23", "IH-75/23", "IH-76/23"],
+        "4-KURS": ["MNP-61/22", "MNP-62/22", "IH-61/22", "KB-61/22", "KB-62/22", "MO-61/22", "MO-62/22", "BBA-61/22", "LG-61/22"]
+    },
+    "IQTISODIYOT FAKULTETI": {
+        "1-KURS": ["I-80/25", "I-81/25", "I-82/25", "I-83/25", "I-84/25", "I-85/25", "I-86/25", "I-87/25", "I-88/25", "I-89/25", "IRB-80/25", "IRB-81/25", "IRB-82/25", "IRB-83/25", "IRB-84/25", "IRB-85/25"],
+        "2-KURS": ["I-50/24", "I-51/24", "I-52/24", "I-53/24", "I-54/24", "I-55/24", "I-56/24", "I-57/24", "I-58/24", "I-59/24", "IRB-50/24", "IRB-51/24", "IRB-52/24"],
+        "3-KURS": ["I-71/23", "I-72/23", "I-73/23", "I-74/23", "I-75/23", "I-76/23", "I-77/23", "I-78/23", "I-79/23", "IRB-75/23", "IRB-76/23", "MI-75/23", "MI-76/23", "BB-75/23", "YaI-75/23", "YaI-76/23", "ShI-75/23", "TI-75/23", "PTI-75/23"],
+        "4-KURS": ["I-61/22", "I-62/22", "I-63/22", "I-64/22", "I-65/22", "I-66/22", "I-67/22", "I-68/22", "I-69/22", "IRB-61/22", "IRB-62/22", "MI-61/22", "MI-62/22", "PTI-61/22", "PTI-62/22"]
+    },
+    "RAQAMLI IQTISODIYOT": {
+        "1-KURS": ["AT-81/25", "AT-82/25", "AT-83/25", "AT-84/25", "AT-85/25", "AT-86/25", "AT-87/25", "AT-88/25", "IB-81/25", "IB-82/25", "IB-83/25", "IB-84/25", "IB-85/25", "IB-86/25", "IB-87/25", "IB-88/25", "II-81/25", "II-82/25", "II-83/25", "II-84/25", "II-85/25", "II-86/25", "RST-81/25", "RST-82/25", "RST-83/25", "RST-84/25", "RST-85/25", "RST-86/25", "RST-87/25", "RST-88/25"],
+        "2-KURS": ["AT-51/24", "AT-52/24", "AT-53/24", "AT-54/24", "AT-55/24", "AT-56/24", "AT-57/24", "II-51/24", "II-52/24", "II-53/24", "IB-51/24", "IB-52/24", "IB-53/24", "RST-51/24", "RST-52/24", "RST-53/24", "RST-54/24"],
+        "3-KURS": ["ATT-75/23", "ATT-76/23", "ATT-77/23", "AT-75/23", "AT-76/23", "IB-75/23", "II-75/23", "EKR-75/23", "BET-75/23", "BET-76/23", "DS-75/23", "RI-75/23", "RI-76/23", "RST-75/23", "RST-76/23", "RST-77/23"],
+        "4-KURS": ["AT-61/22", "AT-62/22", "ATT-61/22", "ATT-62/22", "BET-61/22", "BET-62/22", "DS-61/22", "EKR-61/22", "RI-61/22", "RI-62/22", "RST-61/22", "RST-62/22", "RST-63/22"]
+    }
+}
+
+def set_timetable_category(update, context):
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    keyboard = [[InlineKeyboardButton(f, callback_data=f"f_{f}")] for f in HIERARCHY.keys()]
+    update.message.reply_text(s["select_faculty"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
+
+def main_menu(update, context):
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    keyboard = [
+        [KeyboardButton(s["btn_timetable"]), KeyboardButton(s["btn_hemis"])],
+        [KeyboardButton(s["btn_lang"]), KeyboardButton(s["btn_yordam"])],
+        [KeyboardButton(s["btn_notif"])]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    text = s["welcome"]
+    if update.callback_query:
+        context.bot.send_message(chat_id=update.effective_chat.id, text=text, reply_markup=reply_markup, parse_mode="Markdown")
+    else:
+        update.message.reply_text(text, reply_markup=reply_markup, parse_mode="Markdown")
+
 def start(update, context):
-    """Start with language selection"""
     lang = context.user_data.get("lang")
     if not lang:
         return choose_language(update, context)
-        
-    s = STRINGS[lang]
-    keyboard = [
-        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
-        [KeyboardButton(s["btn_hemis"]), KeyboardButton(s["btn_notif"])],
-        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    update.message.reply_text(
-        s["welcome"],
-        parse_mode="Markdown",
-        reply_markup=reply_markup,
-    )
-
-def notif_menu_handler(update, context):
-    """Notification settings menu"""
-    lang = context.user_data.get("lang", "uz")
-    s = STRINGS[lang]
-    is_enabled = context.user_data.get("notif_enabled", False)
-    status_text = s["notif_status_on"] if is_enabled else s["notif_status_off"]
-    
-    keyboard = [
-        [KeyboardButton(s["btn_notif_on"]), KeyboardButton(s["btn_notif_off"])],
-        [KeyboardButton(s["btn_back"])]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    
-    update.message.reply_text(
-        s["notif_menu"].format(status_text),
-        parse_mode="Markdown",
-        reply_markup=reply_markup
-    )
-
-def daily_notification_callback(context):
-    """Job callback to send daily schedules"""
-    job = context.job
-    chat_id = job.context['chat_id']
-    user_data = context.dispatcher.user_data.get(chat_id, {})
-    
-    lang = user_data.get("lang", "uz")
-    guruh = user_data.get("guruh")
-    s = STRINGS[lang]
-    
-    if not guruh:
-        return
-        
-    filepath, error = take_timetable_screenshot(guruh)
-    if not error and filepath:
-        try:
-            kun = datetime.now().weekday()
-            # Skip Sunday
-            if kun == 6:
-                return
-                
-            kun_nomi = s["days"][kun]
-            caption = s["today_caption"].format(guruh, kun_nomi, f"{BASE_URL}{GROUP_IDS[guruh]}")
-            
-            with open(filepath, "rb") as photo:
-                context.bot.send_photo(chat_id=chat_id, photo=photo, caption=caption, parse_mode="Markdown")
-            os.remove(filepath)
-        except Exception:
-            pass
-
-def update_notification_job(chat_id, context, enable=True):
-    """Add or remove the notification job"""
-    job_name = f"daily_notif_{chat_id}"
-    current_jobs = context.job_queue.get_jobs_by_name(job_name)
-    
-    for job in current_jobs:
-        job.schedule_removal()
-        
-    if enable:
-        # Schedule daily at 08:00
-        from datetime import time as dt_time
-        target_time = dt_time(8, 0, 0)
-        context.job_queue.run_daily(
-            daily_notification_callback,
-            time=target_time,
-            days=(0, 1, 2, 3, 4, 5), # Mon-Sat
-            name=job_name,
-            context={"chat_id": chat_id}
-        )
+    return main_menu(update, context)
 
 def choose_language(update, context):
-    """Language selection menu"""
-    keyboard = [
-        [
-            InlineKeyboardButton("🇺🇿 O'zbekcha", callback_data="lang_uz"),
-            InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru"),
-            InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")
-        ]
-    ]
+    keyboard = [[
+        InlineKeyboardButton("🇺🇿", callback_data="lang_uz"),
+        InlineKeyboardButton("🇷🇺", callback_data="lang_ru"),
+        InlineKeyboardButton("🇺🇸", callback_data="lang_en")
+    ]]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    msg_text = STRINGS["uz"]["choose_lang"]
-    
+    msg_text = "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
     if update.callback_query:
         update.callback_query.message.reply_text(msg_text, reply_markup=reply_markup)
     else:
         update.message.reply_text(msg_text, reply_markup=reply_markup)
 
-def guruh_tanlash(update, context):
-    """Guruhlar"""
-    lang = context.user_data.get("lang", "uz")
-    s = STRINGS[lang]
-    keyboard = []
-
-    # Mashhur guruhlar
-    popular = ["RST-88/25"]
-
-    for g in popular:
-        if g in GROUP_IDS:
-            keyboard.append([
-                InlineKeyboardButton(
-                    f"{g}",
-                    callback_data=f"g_{g}"
-                )
-            ])
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    update.message.reply_text(
-        s["select_group"],
-        reply_markup=reply_markup,
-        parse_mode="Markdown",
-    )
-
-
 def callback_handler(update, context):
-    """Callback"""
     query = update.callback_query
     query.answer()
-    
     data = query.data
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
 
     if data.startswith("lang_"):
-        lang = data.split("_")[1]
-        context.user_data["lang"] = lang
-        s = STRINGS[lang]
-        
-        query.edit_message_text(s["lang_selected"])
-        
-        # Show main menu
-        keyboard = [
-            [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
-            [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
-            [KeyboardButton(s["btn_yordam"])],
-        ]
-        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-        context.bot.send_message(
-            chat_id=query.message.chat_id,
-            text=s["welcome"],
-            parse_mode="Markdown",
-            reply_markup=reply_markup
-        )
+        new_lang = data.split("_")[1]
+        context.user_data["lang"] = new_lang
+        query.edit_message_text(STRINGS[new_lang]["lang_selected"])
+        return main_menu(update, context)
+
+    elif data.startswith("f_"):
+        faculty = data[2:]
+        context.user_data["temp_faculty"] = faculty
+        courses = HIERARCHY[faculty].keys()
+        keyboard = [[InlineKeyboardButton(c, callback_data=f"c_{c}")] for c in courses]
+        keyboard.append([InlineKeyboardButton(s["btn_back"], callback_data="back_to_faculties")])
+        query.edit_message_text(s["select_course"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
+
+    elif data.startswith("c_"):
+        course = data[2:]
+        faculty = context.user_data.get("temp_faculty")
+        groups = HIERARCHY[faculty][course]
+        keyboard = []
+        row = []
+        for i, g in enumerate(groups):
+            row.append(InlineKeyboardButton(g, callback_data=f"g_{g}"))
+            if (i+1) % 2 == 0:
+                keyboard.append(row); row = []
+        if row: keyboard.append(row)
+        keyboard.append([InlineKeyboardButton(s["btn_back"], callback_data=f"f_{faculty}")])
+        query.edit_message_text(s["select_group"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
 
     elif data.startswith("g_"):
         guruh = data[2:]
-        lang = context.user_data.get("lang", "uz")
-        s = STRINGS[lang]
         context.user_data["guruh"] = guruh
-        query.edit_message_text(
-            s["group_selected"].format(guruh),
-            parse_mode="Markdown",
-        )
+        query.edit_message_text(s["group_selected"].format(guruh), parse_mode="Markdown")
+        keyboard = [
+            [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_timetable"])],
+            [KeyboardButton(s["btn_back"])]
+        ]
+        context.bot.send_message(chat_id=query.message.chat_id, text=s["btn_bugun"] + " 👇", reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True))
 
+    elif data == "back_to_faculties":
+        keyboard = [[InlineKeyboardButton(f, callback_data=f"f_{f}")] for f in HIERARCHY.keys()]
+        query.edit_message_text(s["select_faculty"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
 
-def bugun_handler(update, context):
-    """Bugungi darslar - RASM bilan"""
+def notif_menu_handler(update, context):
     lang = context.user_data.get("lang", "uz")
     s = STRINGS[lang]
-    guruh = context.user_data.get("guruh")
+    is_enabled = context.user_data.get("notif_enabled", False)
+    status_text = s["notif_status_on"] if is_enabled else s["notif_status_off"]
+    keyboard = [[KeyboardButton(s["btn_notif_on"]), KeyboardButton(s["btn_notif_off"])], [KeyboardButton(s["btn_back"])]]
+    update.message.reply_text(s["notif_menu"].format(status_text), parse_mode="Markdown", reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True))
 
-    if not guruh:
-        update.message.reply_text(s["no_group"])
-        return
-
-    if guruh not in GROUP_IDS:
-        update.message.reply_text(s["group_not_found"].format(guruh))
-        return
-
-    msg = update.message.reply_text(s["taking_screenshot"])
-
-    # Screenshot olish
+def daily_notification_callback(context):
+    job = context.job
+    chat_id = job.context['chat_id']
+    u_data = context.dispatcher.user_data.get(chat_id, {})
+    lang, guruh = u_data.get("lang", "uz"), u_data.get("guruh")
+    if not guruh: return
     filepath, error = take_timetable_screenshot(guruh)
+    if not error and filepath:
+        try:
+            kun = datetime.now().weekday()
+            if kun == 6: return # Sunday
+            caption = STRINGS[lang]["today_caption"].format(guruh, STRINGS[lang]["days"][kun], f"{BASE_URL}{GROUP_IDS[guruh]}")
+            with open(filepath, "rb") as p: context.bot.send_photo(chat_id=chat_id, photo=p, caption=caption, parse_mode="Markdown")
+            os.remove(filepath)
+        except Exception: pass
 
-    if error or not filepath:
-        msg.edit_text(
-            s["error_screenshot"].format(error) + f"\n{BASE_URL}{GROUP_IDS[guruh]}"
-        )
-        return
+def update_notification_job(chat_id, context, enable=True):
+    job_name = f"daily_notif_{chat_id}"
+    for job in context.job_queue.get_jobs_by_name(job_name): job.schedule_removal()
+    if enable:
+        from datetime import time as dt_time
+        context.job_queue.run_daily(daily_notification_callback, time=dt_time(8, 0, 0), days=(0, 1, 2, 3, 4, 5), name=job_name, context={"chat_id": chat_id})
 
+def bugun_handler(update, context):
+    lang, guruh = context.user_data.get("lang", "uz"), context.user_data.get("guruh")
+    s = STRINGS[lang]
+    if not guruh: return update.message.reply_text(s["no_group"])
+    msg = update.message.reply_text(s["taking_screenshot"])
+    fpath, err = take_timetable_screenshot(guruh)
+    if err or not fpath: return msg.edit_text(s["error_screenshot"].format(err) + f"\n{BASE_URL}{GROUP_IDS[guruh]}")
     try:
         kun = datetime.now().weekday()
-        kun_nomi = s["days"][kun]
-
-        caption = s["today_caption"].format(
-            guruh,
-            kun_nomi,
-            f"{BASE_URL}{GROUP_IDS[guruh]}"
-        )
-
-        with open(filepath, "rb") as photo:
-            update.message.reply_photo(
-                photo=photo,
-                caption=caption,
-                parse_mode="Markdown",
-            )
-
-        msg.delete()
-
-        try:
-            os.remove(filepath)
-        except Exception:
-            pass
-
-    except Exception as e:
-        msg.edit_text(s["error_sending"].format(e))
-
+        caption = s["today_caption"].format(guruh, s["days"][kun], f"{BASE_URL}{GROUP_IDS[guruh]}")
+        with open(fpath, "rb") as p: update.message.reply_photo(photo=p, caption=caption, parse_mode="Markdown")
+        msg.delete(); os.remove(fpath)
+    except Exception as e: msg.edit_text(s["error_sending"].format(e))
 
 def message_handler(update, context):
-    """Messages"""
     text = update.message.text
     lang = context.user_data.get("lang", "uz")
     s = STRINGS[lang]
 
-    # Check buttons in all languages to be safe
-    all_bugun = [STRINGS[l]["btn_bugun"] for l in STRINGS]
-    all_guruh = [STRINGS[l]["btn_guruh"] for l in STRINGS]
-    all_yordam = [STRINGS[l]["btn_yordam"] for l in STRINGS]
-    all_lang = [STRINGS[l]["btn_lang"] for l in STRINGS]
-    all_notif = [STRINGS[l]["btn_notif"] for l in STRINGS]
-    all_notif_on = [STRINGS[l]["btn_notif_on"] for l in STRINGS]
-    all_notif_off = [STRINGS[l]["btn_notif_off"] for l in STRINGS]
-    all_back = [STRINGS[l]["btn_back"] for l in STRINGS]
-    all_hemis = [STRINGS[l]["btn_hemis"] for l in STRINGS]
+    handlers = {
+        tuple([STRINGS[l]["btn_timetable"] for l in STRINGS]): lambda: set_timetable_category(update, context),
+        tuple([STRINGS[l]["btn_hemis"] for l in STRINGS]): lambda: (update.message.reply_text(s["hemis_welcome"], parse_mode="Markdown"), context.user_data.update({"hemis_step": "login"})),
+        tuple([STRINGS[l]["btn_back"] for l in STRINGS]): lambda: main_menu(update, context),
+        tuple([STRINGS[l]["btn_bugun"] for l in STRINGS]): lambda: bugun_handler(update, context),
+        tuple([STRINGS[l]["btn_lang"] for l in STRINGS]): lambda: choose_language(update, context),
+        tuple([STRINGS[l]["btn_yordam"] for l in STRINGS]): lambda: update.message.reply_text(s["help_text"], parse_mode="Markdown"),
+        tuple([STRINGS[l]["btn_notif"] for l in STRINGS]): lambda: notif_menu_handler(update, context),
+        tuple([STRINGS[l]["btn_notif_on"] for l in STRINGS]): lambda: (context.user_data.update({"notif_enabled": True}), update_notification_job(update.message.chat_id, context, True), update.message.reply_text(s["notif_enabled"]), main_menu(update, context)),
+        tuple([STRINGS[l]["btn_notif_off"] for l in STRINGS]): lambda: (context.user_data.update({"notif_enabled": False}), update_notification_job(update.message.chat_id, context, False), update.message.reply_text(s["notif_disabled"]), main_menu(update, context)),
+    }
 
-    if text in all_bugun:
-        bugun_handler(update, context)
-        
-    elif text in all_guruh:
-        guruh_tanlash(update, context)
-        
-    elif text in all_hemis:
-        update.message.reply_text(s["hemis_welcome"], parse_mode="Markdown")
-        context.user_data["hemis_step"] = "login"
+    for buttons, func in handlers.items():
+        if text in buttons: return func()
+
+    hemis_step = context.user_data.get("hemis_step")
+    if hemis_step == "login":
+        context.user_data["hemis_login"] = text
+        update.message.reply_text(s["hemis_password"], parse_mode="Markdown")
+        context.user_data["hemis_step"] = "password"
         return
+    elif hemis_step == "password":
+        login = context.user_data.get("hemis_login")
+        password = text
+        try: update.message.delete()
+        except: pass
+        msg = update.message.reply_text(s["hemis_loading"])
+        api = HemisAPI(login, password)
+        if api.authenticate():
+            me, perf, att = api.get_me(), api.get_performance(), api.get_attendance()
+            if me and perf is not None:
+                subs = ""
+                if isinstance(perf, list):
+                    for sub in perf[:5]: subs += f"— {sub.get('subject', {}).get('name', 'Fan')}: *{sub.get('grade', '-')}*\n"
+                nb = sum(int(a.get("absent_on", 0)) for a in att) if isinstance(att, list) else 0
+                update.message.reply_text(s["hemis_stats"].format(me.get("full_name", "-"), me.get("level", {}).get("name", "-"), "-", "-", nb, subs), parse_mode="Markdown")
+            else: update.message.reply_text(s["hemis_error"].format("Ma'lumot topilmadi"))
+        else: update.message.reply_text(s["hemis_error"].format("Login xato"))
+        context.user_data["hemis_step"] = None; msg.delete(); return
 
-    elif text in all_notif:
-        notif_menu_handler(update, context)
-        
-    elif text in all_notif_on:
-        context.user_data["notif_enabled"] = True
-        update_notification_job(update.message.chat_id, context, enable=True)
-        update.message.reply_text(s["notif_enabled"])
-        start(update, context)
-        
-    elif text in all_notif_off:
-        context.user_data["notif_enabled"] = False
-        update_notification_job(update.message.chat_id, context, enable=False)
-        update.message.reply_text(s["notif_disabled"])
-        start(update, context)
-        
-    elif text in all_back:
-        start(update, context)
-
-    elif text in all_yordam:
-        update.message.reply_text(
-            s["help_text"],
-            parse_mode="Markdown",
-        )
-        
-    elif text in all_lang:
-        choose_language(update, context)
-
-    else:
-        # HEMIS login process
-        hemis_step = context.user_data.get("hemis_step")
-        if hemis_step == "login":
-            context.user_data["hemis_login"] = text
-            update.message.reply_text(s["hemis_password"], parse_mode="Markdown")
-            context.user_data["hemis_step"] = "password"
-            return
-            
-        elif hemis_step == "password":
-            login = context.user_data.get("hemis_login")
-            password = text
-            # Delete password from history if possible (security)
-            try:
-                update.message.delete()
-            except Exception:
-                pass
-                
-            msg = update.message.reply_text(s["hemis_loading"])
-            
-            api = HemisAPI(login, password)
-            if api.authenticate():
-                me = api.get_me()
-                perf = api.get_performance()
-                att = api.get_attendance()
-                
-                if me and perf is not None and att is not None:
-                    full_name = me.get("full_name", "Noma'lum")
-                    level = me.get("level", {}).get("name", "-")
-                    
-                    # Performance data
-                    gpa = 0
-                    percent = 0
-                    subjects_text = ""
-                    
-                    if isinstance(perf, list):
-                        # Calculate GPA if available
-                        total_grade = 0
-                        count = 0
-                        for subject in perf[:5]: # Show latest 5
-                            name = subject.get("subject", {}).get("name", "Fan")
-                            grade = subject.get("grade", "-")
-                            subjects_text += f"— {name}: *{grade}*\n"
-                        
-                        # Note: Simple placeholder logic as actual API response structure might vary
-                    
-                    # Attendance data
-                    nb_total = 0
-                    if isinstance(att, list):
-                        for a in att:
-                            nb_total += int(a.get("absent_on", 0))
-
-                    update.message.reply_text(
-                        s["hemis_stats"].format(
-                            full_name, level, "Baho tizimi", "90", nb_total, subjects_text
-                        ),
-                        parse_mode="Markdown"
-                    )
-                else:
-                    update.message.reply_text(s["hemis_error"].format("Ma'lumot topilmadi"))
-            else:
-                update.message.reply_text(s["hemis_error"].format("ID yoki parol xato"))
-            
-            context.user_data["hemis_step"] = None
-            msg.delete()
-            return
-
-        # Guruh nomini tekshirish
-        user_text = text.strip().upper()
-
-        for g in GROUP_IDS.keys():
-            if g.upper() == user_text:
-                context.user_data["guruh"] = g
-                update.message.reply_text(
-                    s["group_selected"].format(g),
-                    parse_mode="Markdown",
-                )
-                return
-
-        # Default welcome message if not a group
-        update.message.reply_text(
-            s["welcome"],
-            parse_mode="Markdown",
-        )
-
+    user_text = text.strip().upper()
+    for g in GROUP_IDS.keys():
+        if g.upper() == user_text:
+            context.user_data["guruh"] = g
+            return update.message.reply_text(s["group_selected"].format(g), parse_mode="Markdown")
+    return main_menu(update, context)
 
 def stats(update, context):
-    """Bot statistics for Admin"""
-    user = update.effective_user
-    if user.username != ADMIN_USERNAME:
-        return
-
-    # Count entries in dispatcher.user_data
-    total_users = len(context.dispatcher.user_data)
-    
-    # Count how many have notifications active
-    notif_users = 0
-    for u_id in context.dispatcher.user_data:
-        if context.dispatcher.user_data[u_id].get("notif_enabled", False):
-            notif_users += 1
-
-    msg = (
-        "📊 *Bot statistikasi:*\n\n"
-        f"👥 Umumiy foydalanuvchilar: `{total_users}`\n"
-        f"🔔 Eslatma yoqqanlar: `{notif_users}`"
-    )
-    update.message.reply_text(msg, parse_mode="Markdown")
-
+    if update.effective_user.username != ADMIN_USERNAME: return
+    total, active = len(context.dispatcher.user_data), sum(1 for u in context.dispatcher.user_data.values() if u.get("notif_enabled"))
+    update.message.reply_text(f"📊 *Statistika:*\n👥 Foydalanuvchilar: `{total}`\n🔔 Eslatma: `{active}`", parse_mode="Markdown")
 
 def broadcast(update, context):
-    """Send message to all users - Admin only"""
-    user = update.effective_user
-    if user.username != ADMIN_USERNAME:
-        return
-
-    # Get the message after /send
-    text = update.message.text.replace("/send", "").strip()
-    
-    if not text:
-        update.message.reply_text("❌ Xabar yozilmagan. Masalan: `/send Salom talabalar!`", parse_mode="Markdown")
-        return
-
-    msg = update.message.reply_text(f"🚀 Xabar yuborish boshlandi...")
-    
-    chat_ids = context.dispatcher.user_data.keys()
-    success = 0
-    failed = 0
-    
-    for chat_id in chat_ids:
-        try:
-            context.bot.send_message(chat_id=chat_id, text=text, parse_mode="Markdown")
-            success += 1
-            # Add small delay to avoid flood
-            time.sleep(0.05)
-        except Exception:
-            failed += 1
-            
-    msg.edit_text(
-        f"✅ Yuborish yakunlandi!\n\n"
-        f"➕ Muvaffaqiyatli: `{success}`\n"
-        f"➖ Muvaffaqiyatsiz: `{failed}`",
-        parse_mode="Markdown"
-    )
-
-
+    if update.effective_user.username != ADMIN_USERNAME: return
+    txt = update.message.text.replace("/send", "").strip()
+    if not txt: return update.message.reply_text("❌ Matn yo'q")
+    m = update.message.reply_text("🚀 Yuborilmoqda...")
+    ok, err = 0, 0
+    for cid in context.dispatcher.user_data.keys():
+        try: context.bot.send_message(chat_id=cid, text=txt, parse_mode="Markdown"); ok += 1; time.sleep(0.05)
+        except: err += 1
+    m.edit_text(f"✅ Tugadi\n➕ {ok}\n➖ {err}", parse_mode="Markdown")
 
 def main():
-    print("============================================================")
-    print("🎓 TSUE Jadval Bot")
-    print(f"📊 {len(GROUP_IDS)} ta guruh/element")
-    print("📸 Screenshot rejimi")
-    print("============================================================")
-
     from telegram.ext import PicklePersistence
     persistence = PicklePersistence(filename='bot_data.pickle')
-
     updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
     dp = updater.dispatcher
-
-    # Restart jobs for users who have them enabled
-    job_queue = updater.job_queue
-    def restore_jobs(dispatcher):
-        chat_ids = dispatcher.user_data.keys()
-        for chat_id in chat_ids:
-            u_data = dispatcher.user_data.get(chat_id, {})
-            if u_data.get("notif_enabled", False):
-                # Manual job reconstruction since objects aren't persisted well
-                job_name = f"daily_notif_{chat_id}"
-                from datetime import time as dt_time
-                target_time = dt_time(8, 0, 0)
-                job_queue.run_daily(
-                    daily_notification_callback,
-                    time=target_time,
-                    days=(0, 1, 2, 3, 4, 5),
-                    name=job_name,
-                    context={"chat_id": chat_id}
-                )
-
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("stats", stats))
     dp.add_handler(CommandHandler("send", broadcast))
-    dp.add_handler(CommandHandler("guruh", guruh_tanlash))
     dp.add_handler(CallbackQueryHandler(callback_handler))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
-
-    print("✅ Ishga tushdi!")
     
-    # Restore jobs after start
-    restore_jobs(dp)
-    
+    # Restore jobs
+    for cid, u in dp.user_data.items():
+        if u.get("notif_enabled"):
+            from datetime import time as dt_time
+            updater.job_queue.run_daily(daily_notification_callback, time=dt_time(8, 0, 0), days=(0, 1, 2, 3, 4, 5), name=f"daily_notif_{cid}", context={"chat_id": cid})
+            
     updater.start_polling()
     updater.idle()
-
 
 if __name__ == "__main__":
     main()
