@@ -10,7 +10,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
-print("🚀 Bot v2.2-Final is starting...")
+print("🚀 Bot v2.3-Final is starting...")
 
 STRINGS = {
     "uz": {
@@ -1631,41 +1631,51 @@ def take_timetable_screenshot(guruh):
 # HIERARCHY (Barcha fakultetlar va kurslar)
 HIERARCHY = {
     "🏛 MENEJMENT": {
-        "1-KURS": ["MNP-80", "MNP-81", "MNP-82", "MNP-83", "MO-80/25", "LG-80/25", "BBA-80/25"],
-        "2-KURS": ["MNP-51/24", "MO-51/24", "LG-51/24", "BBA-51/24"],
-        "3-KURS": ["MNP-25/23r", "MO-25/23r", "BBA-75/23"],
+        "1-KURS": ["MNP-80", "MNP-81", "MNP-82", "MNP-83", "MNP-84", "MO-80/25", "LG-80/25", "BBA-80/25"],
+        "2-KURS": ["MNP-51/24", "MNP-52/24", "MO-50/24", "MO-51/24", "LG-51/24", "BBA-51/24"],
+        "3-KURS": ["MNP-25/23r", "MNP-26/23r", "MO-25/23r", "MO-26/23r", "BBA-75/23"],
         "4-KURS": ["MNP-01/22r", "MO-01/22r", "MNP-61/22", "BBA-61/22"]
     },
     "🏛 IQTISODIYOT": {
-        "1-KURS": ["I-80/25", "I-81/25", "I-82/25", "IRB-80/25"],
-        "2-KURS": ["I-01/24r", "I-50/24", "I-51/24", "IRB-50/24"],
-        "3-KURS": ["I-71/23", "I-72/23", "IRB-75/23"],
-        "4-KURS": ["IRB-10/22r", "I-10/22r", "I-61/22"]
+        "1-KURS": ["I-80/25", "I-81/25", "I-82/25", "I-83/25", "IRB-80/25"],
+        "2-KURS": ["I-01/24r", "I-50/24", "I-51/24", "I-52/24", "IRB-50/24"],
+        "3-KURS": ["I-71/23", "I-72/23", "I-20/23r", "IRB-75/23"],
+        "4-KURS": ["IRB-10/22r", "I-10/22r", "I-61/22", "IRB-61/22"]
     },
     "🏛 RAQAMLI IQTISODIYOT": {
         "1-KURS": ["AT-81/25", "IB-81/25", "II-81/25", "RST-81/25"],
         "2-KURS": ["AT-51/24", "II-51/24", "IB-51/24", "RST-51/24"],
         "3-KURS": ["AT-75/23", "IB-75/23", "RI-75/23", "RST-75/23"],
-        "4-KURS": ["AT-61/22", "RI-61/22"]
+        "4-KURS": ["AT-61/22", "RI-61/22", "RST-61/22"]
     },
-    "🏛 TURIZM / 🏛 MOLIYA / 🏛 BANK": {
+    "🏛 TURIZM / 🏛 MOLIYA": {
         "1-KURS": ["MR-82/25", "TU-82/25", "MMT-80/25", "BIA-80/25"],
         "2-KURS": ["TU-51/24", "MR-51/24", "MMT-50/24", "BIA-50/24"],
         "3-KURS": ["TL-75/23", "TU-75/23", "MMT-70/23", "BIA-70/23"],
         "4-KURS": ["TU-61/22", "MR-61/22", "MMT-60/22", "BIA-60/22"]
     },
+    "🏛 BUXGALTERIYA / 🏛 SOLIQ": {
+        "1-KURS": ["BHA-80/25", "ST-80/25"],
+        "2-KURS": ["BHA-50/24", "ST-50/24"],
+        "3-KURS": ["BHA-70/23", "ST-70/23"],
+        "4-KURS": ["BHA-60/22", "ST-60/22"]
+    },
     "🎓 MAGISTRATURA": {
-        "1-KURS": ["IN-25", "I-25", "MI-25", "BH-25", "M-25", "MBA-25"],
-        "2-KURS": ["IN-15", "I-15", "MI-15", "BH-15", "M-15", "MBA-15"]
+        "1-KURS": ["IN-25", "I-25", "BH-25", "M-25", "MBA-25"],
+        "2-KURS": ["IN-15", "I-15", "BH-15", "M-15", "MBA-15"]
     },
     "🌙 KECHKI / 💻 MASOFAVIY": {
-        "1-KURS": ["KI-80/25", "KBHA-80/25", "KMMT-80/25", "MIQT-80/25"],
-        "2-KURS": ["KI-51/24", "KBHA-51/24", "KMMT-51/24", "MIQT-51/24"],
+        "1-KURS": ["KI-80/25", "KBHA-80/25", "KMMT-80/25", "MIQT-80/25", "MBHA-80/25"],
+        "2-KURS": ["KI-51/24", "KBHA-51/24", "KMMT-51/24", "MIQT-51/24", "MBHA-51/24"],
         "3-KURS": ["KI-60/23", "KBHA-60/23", "MHBA-75/23", "MIQT-75/23"]
     },
     "📅 SIRTQI TA'LIM": {
         "2-KURS": ["SI-01/24", "SBHA-01/24", "SMMT-01/24", "SBIA-01/24"],
         "5-KURS": ["MEK-91/21", "MIRB-91/21", "MMI-91/21", "MSS-91/21", "MMNP-91/21"]
+    },
+    "🌐 QO'SHMA (Joint/Polotskiy)": {
+        "JOINT": ["LSE-F/G1", "МЭБ-25"],
+        "POLOTSKIY": ["СФБУА-30-25-(32)", "PO12"]
     }
 }
 
@@ -1802,31 +1812,48 @@ def bugun_handler(update, context):
 
 def message_handler(update, context):
     text = update.message.text
+    chat_id = update.message.chat_id
     lang = context.user_data.get("lang", "uz")
-    s = STRINGS[lang]
-
-    handlers = {
-        tuple([STRINGS[l]["btn_timetable"] for l in STRINGS]): lambda: set_timetable_category(update, context),
-        tuple([STRINGS[l]["btn_back"] for l in STRINGS]): lambda: main_menu(update, context),
-        tuple([STRINGS[l]["btn_bugun"] for l in STRINGS]): lambda: bugun_handler(update, context),
-        tuple([STRINGS[l]["btn_lang"] for l in STRINGS]): lambda: choose_language(update, context),
-        tuple([STRINGS[l]["btn_yordam"] for l in STRINGS]): lambda: update.message.reply_text(s["help_text"], parse_mode="Markdown"),
-        tuple([STRINGS[l]["btn_notif"] for l in STRINGS]): lambda: notif_menu_handler(update, context),
-        tuple([STRINGS[l]["btn_notif_on"] for l in STRINGS]): lambda: (context.user_data.update({"notif_enabled": True}), update_notification_job(update.message.chat_id, context, True), update.message.reply_text(s["notif_enabled"]), main_menu(update, context)),
-        tuple([STRINGS[l]["btn_notif_off"] for l in STRINGS]): lambda: (context.user_data.update({"notif_enabled": False}), update_notification_job(update.message.chat_id, context, False), update.message.reply_text(s["notif_disabled"]), main_menu(update, context)),
-    }
-
-    for buttons, func in handlers.items():
-        if text in buttons:
-            print(f"Debug: Match found for '{text}'")
-            return func()
+    guruh = context.user_data.get("guruh")
     
-    print(f"Debug: No button match for '{text}' (UTF-8: {text.encode('utf-8')})")
+    print(f"Debug: Chat:{chat_id} | Lang:{lang} | Group:{guruh} | Text:'{text}'")
+
+    # Lowercase match for extra robustness
+    norm_text = text.strip().lower()
+
+    def check_match(key):
+        return any(norm_text == STRINGS[l][key].strip().lower() for l in STRINGS)
+
+    if check_match("btn_timetable"):
+        return set_timetable_category(update, context)
+    if check_match("btn_back"):
+        return main_menu(update, context)
+    if check_match("btn_bugun"):
+        return bugun_handler(update, context)
+    if check_match("btn_lang"):
+        return choose_language(update, context)
+    if check_match("btn_yordam"):
+        return update.message.reply_text(STRINGS[lang]["help_text"], parse_mode="Markdown")
+    if check_match("btn_notif"):
+        return notif_menu_handler(update, context)
+    if check_match("btn_notif_on"):
+        context.user_data.update({"notif_enabled": True})
+        update_notification_job(chat_id, context, True)
+        update.message.reply_text(STRINGS[lang]["notif_enabled"])
+        return main_menu(update, context)
+    if check_match("btn_notif_off"):
+        context.user_data.update({"notif_enabled": False})
+        update_notification_job(chat_id, context, False)
+        update.message.reply_text(STRINGS[lang]["notif_disabled"])
+        return main_menu(update, context)
+
+    # Search by group name directly
     user_text = text.strip().upper()
     for g in GROUP_IDS.keys():
         if g.upper() == user_text:
             context.user_data["guruh"] = g
-            return update.message.reply_text(s["group_selected"].format(g), parse_mode="Markdown")
+            return update.message.reply_text(STRINGS[lang]["group_selected"].format(g), parse_mode="Markdown")
+    
     return main_menu(update, context)
 
 def stats(update, context):
