@@ -1,0 +1,11 @@
+[nixpacks]
+providers = ["python"]
+
+[phases.setup]
+nixPkgs = ["...", "chromium"]
+
+[phases.install]
+cmds = ["pip install -r requirements.txt", "playwright install chromium", "playwright install-deps chromium"]
+
+[start]
+cmd = "python bot.py"
