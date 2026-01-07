@@ -10,7 +10,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
-print("🚀 Bot v2.3-Final is starting...")
+print("🚀 Bot v2.4-ManualEntry is starting...")
 
 STRINGS = {
     "uz": {
@@ -30,7 +30,7 @@ STRINGS = {
         "notif_status_off": "🔴 O'chirilgan",
         "notif_enabled": "✅ *Muvaffaqiyatli!* Eslatmalar yoqildi. Har kuni 08:00 da dars jadvali kutib turing! 📥",
         "notif_disabled": "❌ Eslatmalar o'chirildi.",
-        "select_faculty": "🏛 *Fakultetingizni tanlang:*",
+        "select_faculty": "🏛 *Guruhingizni kiriting:* (Masalan: MNP-80)",
         "select_course": "🎓 *Kursni tanlang:*",
         "select_group": "👥 *Guruhingizni tanlang:*",
         "group_selected": "✅ *{}* tanlandi!\n\n📅 'Bugun' tugmasini bosing.",
@@ -40,7 +40,7 @@ STRINGS = {
         "error_screenshot": "❌ Rasm olinmadi\n\nXatolik: {}\n\n🔗 Saytda ko‘ring:",
         "error_sending": "❌ Rasm yuborishda xatolik: {}",
         "today_caption": "📅 *Bugungi jadval*\n👥 *{}*\n📆 {}\n\n🔗 [Saytda ko‘rish]({})",
-        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalanish qulay?*\n1️⃣ `🔍 Guruh Tanlash` bo'limiga kiring\n2️⃣ Fakultet va kursingizni tanlang\n3️⃣ `📅 Bugun` tugmasini bosing\n\n‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv",
+        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalanish qulay?*\n1️⃣ `🔍 Guruh Tanlash` bo'limiga kiring\n2️⃣ Guruhingiz nomini yozing (Masalan: `MNP-80`)\n3️⃣ `📅 Bugun` tugmasini bosing\n\n‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv",
         "days": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba", "Yakshanba"],
         "lang_selected": "✅ Oʻzbek tili tanlandi!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
@@ -60,7 +60,7 @@ STRINGS = {
         "notif_status_off": "🔴 Выключено",
         "notif_enabled": "✅ *Успешно!* Уведомления включены. Ждите расписание каждый день в 08:00! 📥",
         "notif_disabled": "❌ Уведомления выключены.",
-        "select_faculty": "🏛 *Выберите факультет:*",
+        "select_faculty": "🏛 *Введите название группы:* (Например: MNP-80)",
         "select_course": "🎓 *Выберите курс:*",
         "select_group": "👥 *Выберите группу:*",
         "group_selected": "✅ *{}* выбрана!\n\n📅 Нажмите кнопку 'Сегодня'.",
@@ -70,7 +70,7 @@ STRINGS = {
         "error_screenshot": "❌ Изображение не получено\n\nОшибка: {}\n\n🔗 Посмотреть на сайте:",
         "error_sending": "❌ Ошибка при отправке фото: {}",
         "today_caption": "📅 *Расписание на сегодня*\n👥 *{}*\n📆 {}\n\n🔗 [Посмотреть на сайте]({})",
-        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `🔍 Поиск группы` — выберите свой раздел\n2️⃣ Выберите факультет и курс\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n👨‍💻 *Контакты:*\n👉 @sqosimovv",
+        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `🔍 Поиск группы` — напишите название вашей группы\n2️⃣ Например: `MNP-80`\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n👨‍💻 *Контакты:*\n👉 @sqosimovv",
         "days": ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
         "lang_selected": "✅ Выбран русский язык!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
@@ -90,17 +90,12 @@ STRINGS = {
         "notif_status_off": "🔴 Disabled",
         "notif_enabled": "✅ *Success!* Notifications enabled. Expect your timetable every day at 08:00! 📥",
         "notif_disabled": "❌ Notifications disabled.",
-        "select_faculty": "🏛 *Select Faculty:*",
+        "select_faculty": "🏛 *Type your group name:* (e.g., MNP-80)",
         "select_course": "🎓 *Select Course:*",
         "select_group": "👥 *Select Group:*",
         "group_selected": "✅ *{}* selected!\n\n📅 Press 'Today'.",
-        "no_group": "❌ Select a group first!",
-        "group_not_found": "⚠️ {} not found. Type correctly.",
-        "taking_screenshot": "📸 Taking timetable screenshot...",
-        "error_screenshot": "❌ Image failed\n\nError: {}\n\n🔗 View on site:",
-        "error_sending": "❌ Error sending photo: {}",
         "today_caption": "📅 *Today's Timetable*\n👥 *{}*\n📆 {}\n\n🔗 [View on site]({})",
-        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ Go to `🔍 Select Group` section\n2️⃣ Select your faculty and course\n3️⃣ Press the `📅 Today` button\n\n👨‍💻 *Contact:*\n👉 @sqosimovv",
+        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ Go to `🔍 Select Group` section\n2️⃣ Type your group name (e.g., `MNP-80`)\n3️⃣ Press the `📅 Today` button\n\n👨‍💻 *Contact:*\n👉 @sqosimovv",
         "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         "lang_selected": "✅ English language selected!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
@@ -1629,62 +1624,11 @@ def take_timetable_screenshot(guruh):
 
 # HIERARCHY ma'lumotlari (Fakultet -> Kurs -> Guruhlar)
 # HIERARCHY (Barcha fakultetlar va kurslar)
-HIERARCHY = {
-    "🏛 MENEJMENT": {
-        "1-KURS": ["MNP-80", "MNP-81", "MNP-82", "MNP-83", "MNP-84", "MO-80/25", "LG-80/25", "BBA-80/25"],
-        "2-KURS": ["MNP-51/24", "MNP-52/24", "MO-50/24", "MO-51/24", "LG-51/24", "BBA-51/24"],
-        "3-KURS": ["MNP-25/23r", "MNP-26/23r", "MO-25/23r", "MO-26/23r", "BBA-75/23"],
-        "4-KURS": ["MNP-01/22r", "MO-01/22r", "MNP-61/22", "BBA-61/22"]
-    },
-    "🏛 IQTISODIYOT": {
-        "1-KURS": ["I-80/25", "I-81/25", "I-82/25", "I-83/25", "IRB-80/25"],
-        "2-KURS": ["I-01/24r", "I-50/24", "I-51/24", "I-52/24", "IRB-50/24"],
-        "3-KURS": ["I-71/23", "I-72/23", "I-20/23r", "IRB-75/23"],
-        "4-KURS": ["IRB-10/22r", "I-10/22r", "I-61/22", "IRB-61/22"]
-    },
-    "🏛 RAQAMLI IQTISODIYOT": {
-        "1-KURS": ["AT-81/25", "IB-81/25", "II-81/25", "RST-81/25"],
-        "2-KURS": ["AT-51/24", "II-51/24", "IB-51/24", "RST-51/24"],
-        "3-KURS": ["AT-75/23", "IB-75/23", "RI-75/23", "RST-75/23"],
-        "4-KURS": ["AT-61/22", "RI-61/22", "RST-61/22"]
-    },
-    "🏛 TURIZM / 🏛 MOLIYA": {
-        "1-KURS": ["MR-82/25", "TU-82/25", "MMT-80/25", "BIA-80/25"],
-        "2-KURS": ["TU-51/24", "MR-51/24", "MMT-50/24", "BIA-50/24"],
-        "3-KURS": ["TL-75/23", "TU-75/23", "MMT-70/23", "BIA-70/23"],
-        "4-KURS": ["TU-61/22", "MR-61/22", "MMT-60/22", "BIA-60/22"]
-    },
-    "🏛 BUXGALTERIYA / 🏛 SOLIQ": {
-        "1-KURS": ["BHA-80/25", "ST-80/25"],
-        "2-KURS": ["BHA-50/24", "ST-50/24"],
-        "3-KURS": ["BHA-70/23", "ST-70/23"],
-        "4-KURS": ["BHA-60/22", "ST-60/22"]
-    },
-    "🎓 MAGISTRATURA": {
-        "1-KURS": ["IN-25", "I-25", "BH-25", "M-25", "MBA-25"],
-        "2-KURS": ["IN-15", "I-15", "BH-15", "M-15", "MBA-15"]
-    },
-    "🌙 KECHKI / 💻 MASOFAVIY": {
-        "1-KURS": ["KI-80/25", "KBHA-80/25", "KMMT-80/25", "MIQT-80/25", "MBHA-80/25"],
-        "2-KURS": ["KI-51/24", "KBHA-51/24", "KMMT-51/24", "MIQT-51/24", "MBHA-51/24"],
-        "3-KURS": ["KI-60/23", "KBHA-60/23", "MHBA-75/23", "MIQT-75/23"]
-    },
-    "📅 SIRTQI TA'LIM": {
-        "2-KURS": ["SI-01/24", "SBHA-01/24", "SMMT-01/24", "SBIA-01/24"],
-        "5-KURS": ["MEK-91/21", "MIRB-91/21", "MMI-91/21", "MSS-91/21", "MMNP-91/21"]
-    },
-    "🌐 QO'SHMA (Joint/Polotskiy)": {
-        "JOINT": ["LSE-F/G1", "МЭБ-25"],
-        "POLOTSKIY": ["СФБУА-30-25-(32)", "PO12"]
-    }
-}
+# HIERARCHY removed as per user request for manual input
 
 def set_timetable_category(update, context):
     lang = context.user_data.get("lang", "uz")
-    s = STRINGS[lang]
-    keyboard = [[InlineKeyboardButton(f, callback_data=f"f_{f}")] for f in HIERARCHY.keys()]
-    msg = update.message.reply_text(s["select_faculty"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
-    context.user_data["last_msg_id"] = msg.message_id
+    return update.message.reply_text(STRINGS[lang]["select_faculty"], parse_mode="Markdown")
 
 def main_menu(update, context):
     lang = context.user_data.get("lang", "uz")
@@ -1732,38 +1676,6 @@ def callback_handler(update, context):
         context.user_data["lang"] = new_lang
         query.edit_message_text(STRINGS[new_lang]["lang_selected"])
         return main_menu(update, context)
-
-    elif data.startswith("f_"):
-        faculty = data[2:]
-        context.user_data["temp_faculty"] = faculty
-        courses = HIERARCHY[faculty].keys()
-        keyboard = [[InlineKeyboardButton(c, callback_data=f"c_{c}")] for c in courses]
-        keyboard.append([InlineKeyboardButton(s["btn_back"], callback_data="back_to_faculties")])
-        query.edit_message_text(s["select_course"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
-
-    elif data.startswith("c_"):
-        course = data[2:]
-        faculty = context.user_data.get("temp_faculty")
-        groups = HIERARCHY[faculty][course]
-        keyboard = []
-        row = []
-        for i, g in enumerate(groups):
-            row.append(InlineKeyboardButton(g, callback_data=f"g_{g}"))
-            if (i+1) % 2 == 0:
-                keyboard.append(row); row = []
-        if row: keyboard.append(row)
-        keyboard.append([InlineKeyboardButton(s["btn_back"], callback_data=f"f_{faculty}")])
-        query.edit_message_text(s["select_group"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
-
-    elif data.startswith("g_"):
-        guruh = data[2:]
-        context.user_data["guruh"] = guruh
-        query.edit_message_text(s["group_selected"].format(guruh), parse_mode="Markdown")
-        return main_menu(update, context)
-
-    elif data == "back_to_faculties":
-        keyboard = [[InlineKeyboardButton(f, callback_data=f"f_{f}")] for f in HIERARCHY.keys()]
-        query.edit_message_text(s["select_faculty"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
 
 def notif_menu_handler(update, context):
     lang = context.user_data.get("lang", "uz")
@@ -1873,7 +1785,7 @@ def broadcast(update, context):
     m.edit_text(f"✅ Tugadi\n➕ {ok}\n➖ {err}", parse_mode="Markdown")
 
 def version_cmd(update, context):
-    update.message.reply_text("✅ Bot Version: `v2.2-Final`", parse_mode="Markdown")
+    update.message.reply_text("✅ Bot Version: `v2.4-ManualEntry`", parse_mode="Markdown")
 
 def main():
     from telegram.ext import PicklePersistence
