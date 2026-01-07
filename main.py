@@ -1628,24 +1628,44 @@ def take_timetable_screenshot(guruh):
 
 
 # HIERARCHY ma'lumotlari (Fakultet -> Kurs -> Guruhlar)
+# HIERARCHY (Barcha fakultetlar va kurslar)
 HIERARCHY = {
-    "MENEJMENT FAKULTETI": {
-        "1-KURS": ["MNP-80", "MNP-81", "MNP-82", "MNP-83", "MNP-84", "MNP-85", "MNP-86", "MNP-87", "MNP-88", "MNP-89", "MO-80/25", "MO-81/25", "MO-82/25", "MO-83/25", "MO-84/25", "MO-85/25", "MO-86/25", "MO-87/25", "MO-88/25", "MO-89/25", "LG-80/25", "LG-81/25", "LG-82/25", "LG-83/25", "LG-84/25", "LG-85/25", "BBA-80/25", "BBA-81/25", "BBA-82/25", "BBA-83/25", "BBA-84/25", "BBA-85/25", "BBA-86/25", "BBA-87/25", "BBA-88/25"],
-        "2-KURS": ["MNP-51/24", "MNP-52/24", "MNP-53/24", "MNP-54/24", "MNP-55/24", "MNP-56/24", "MNP-57/24", "MO-50/24", "MO-59/24", "MO-51/24", "MO-52/24", "MO-53/24", "MO-54/24", "MO-55/24", "MO-56/24", "MO-57/24", "MO-58/24", "LG-51/24", "LG-52/24", "BBA-51/24", "BBA-52/24", "BBA-53/24", "BBA-54/24", "BBA-55/24"],
-        "3-KURS": ["MNP-75/23", "MNP-76/23", "MO-75/23", "MO-76/23", "MO-77/23", "KB-75/23", "KB-76/23", "BBA-75/23", "LG-75/23", "IH-75/23", "IH-76/23"],
-        "4-KURS": ["MNP-61/22", "MNP-62/22", "IH-61/22", "KB-61/22", "KB-62/22", "MO-61/22", "MO-62/22", "BBA-61/22", "LG-61/22"]
+    "🏛 MENEJMENT": {
+        "1-KURS": ["MNP-80", "MNP-81", "MNP-82", "MNP-83", "MO-80/25", "LG-80/25", "BBA-80/25"],
+        "2-KURS": ["MNP-51/24", "MO-51/24", "LG-51/24", "BBA-51/24"],
+        "3-KURS": ["MNP-25/23r", "MO-25/23r", "BBA-75/23"],
+        "4-KURS": ["MNP-01/22r", "MO-01/22r", "MNP-61/22", "BBA-61/22"]
     },
-    "IQTISODIYOT FAKULTETI": {
-        "1-KURS": ["I-80/25", "I-81/25", "I-82/25", "I-83/25", "I-84/25", "I-85/25", "I-86/25", "I-87/25", "I-88/25", "I-89/25", "IRB-80/25", "IRB-81/25", "IRB-82/25", "IRB-83/25", "IRB-84/25", "IRB-85/25"],
-        "2-KURS": ["I-50/24", "I-51/24", "I-52/24", "I-53/24", "I-54/24", "I-55/24", "I-56/24", "I-57/24", "I-58/24", "I-59/24", "IRB-50/24", "IRB-51/24", "IRB-52/24"],
-        "3-KURS": ["I-71/23", "I-72/23", "I-73/23", "I-74/23", "I-75/23", "I-76/23", "I-77/23", "I-78/23", "I-79/23", "IRB-75/23", "IRB-76/23", "MI-75/23", "MI-76/23", "BB-75/23", "YaI-75/23", "YaI-76/23", "ShI-75/23", "TI-75/23", "PTI-75/23"],
-        "4-KURS": ["I-61/22", "I-62/22", "I-63/22", "I-64/22", "I-65/22", "I-66/22", "I-67/22", "I-68/22", "I-69/22", "IRB-61/22", "IRB-62/22", "MI-61/22", "MI-62/22", "PTI-61/22", "PTI-62/22"]
+    "🏛 IQTISODIYOT": {
+        "1-KURS": ["I-80/25", "I-81/25", "I-82/25", "IRB-80/25"],
+        "2-KURS": ["I-01/24r", "I-50/24", "I-51/24", "IRB-50/24"],
+        "3-KURS": ["I-71/23", "I-72/23", "IRB-75/23"],
+        "4-KURS": ["IRB-10/22r", "I-10/22r", "I-61/22"]
     },
-    "RAQAMLI IQTISODIYOT": {
-        "1-KURS": ["AT-81/25", "AT-82/25", "AT-83/25", "AT-84/25", "AT-85/25", "AT-86/25", "AT-87/25", "AT-88/25", "IB-81/25", "IB-82/25", "IB-83/25", "IB-84/25", "IB-85/25", "IB-86/25", "IB-87/25", "IB-88/25", "II-81/25", "II-82/25", "II-83/25", "II-84/25", "II-85/25", "II-86/25", "RST-81/25", "RST-82/25", "RST-83/25", "RST-84/25", "RST-85/25", "RST-86/25", "RST-87/25", "RST-88/25"],
-        "2-KURS": ["AT-51/24", "AT-52/24", "AT-53/24", "AT-54/24", "AT-55/24", "AT-56/24", "AT-57/24", "II-51/24", "II-52/24", "II-53/24", "IB-51/24", "IB-52/24", "IB-53/24", "RST-51/24", "RST-52/24", "RST-53/24", "RST-54/24"],
-        "3-KURS": ["ATT-75/23", "ATT-76/23", "ATT-77/23", "AT-75/23", "AT-76/23", "IB-75/23", "II-75/23", "EKR-75/23", "BET-75/23", "BET-76/23", "DS-75/23", "RI-75/23", "RI-76/23", "RST-75/23", "RST-76/23", "RST-77/23"],
-        "4-KURS": ["AT-61/22", "AT-62/22", "ATT-61/22", "ATT-62/22", "BET-61/22", "BET-62/22", "DS-61/22", "EKR-61/22", "RI-61/22", "RI-62/22", "RST-61/22", "RST-62/22", "RST-63/22"]
+    "🏛 RAQAMLI IQTISODIYOT": {
+        "1-KURS": ["AT-81/25", "IB-81/25", "II-81/25", "RST-81/25"],
+        "2-KURS": ["AT-51/24", "II-51/24", "IB-51/24", "RST-51/24"],
+        "3-KURS": ["AT-75/23", "IB-75/23", "RI-75/23", "RST-75/23"],
+        "4-KURS": ["AT-61/22", "RI-61/22"]
+    },
+    "🏛 TURIZM / 🏛 MOLIYA / 🏛 BANK": {
+        "1-KURS": ["MR-82/25", "TU-82/25", "MMT-80/25", "BIA-80/25"],
+        "2-KURS": ["TU-51/24", "MR-51/24", "MMT-50/24", "BIA-50/24"],
+        "3-KURS": ["TL-75/23", "TU-75/23", "MMT-70/23", "BIA-70/23"],
+        "4-KURS": ["TU-61/22", "MR-61/22", "MMT-60/22", "BIA-60/22"]
+    },
+    "🎓 MAGISTRATURA": {
+        "1-KURS": ["IN-25", "I-25", "MI-25", "BH-25", "M-25", "MBA-25"],
+        "2-KURS": ["IN-15", "I-15", "MI-15", "BH-15", "M-15", "MBA-15"]
+    },
+    "🌙 KECHKI / 💻 MASOFAVIY": {
+        "1-KURS": ["KI-80/25", "KBHA-80/25", "KMMT-80/25", "MIQT-80/25"],
+        "2-KURS": ["KI-51/24", "KBHA-51/24", "KMMT-51/24", "MIQT-51/24"],
+        "3-KURS": ["KI-60/23", "KBHA-60/23", "MHBA-75/23", "MIQT-75/23"]
+    },
+    "📅 SIRTQI TA'LIM": {
+        "2-KURS": ["SI-01/24", "SBHA-01/24", "SMMT-01/24", "SBIA-01/24"],
+        "5-KURS": ["MEK-91/21", "MIRB-91/21", "MMI-91/21", "MSS-91/21", "MMNP-91/21"]
     }
 }
 
@@ -1653,15 +1673,16 @@ def set_timetable_category(update, context):
     lang = context.user_data.get("lang", "uz")
     s = STRINGS[lang]
     keyboard = [[InlineKeyboardButton(f, callback_data=f"f_{f}")] for f in HIERARCHY.keys()]
-    update.message.reply_text(s["select_faculty"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
+    msg = update.message.reply_text(s["select_faculty"], reply_markup=InlineKeyboardMarkup(keyboard), parse_mode="Markdown")
+    context.user_data["last_msg_id"] = msg.message_id
 
 def main_menu(update, context):
     lang = context.user_data.get("lang", "uz")
     s = STRINGS[lang]
     keyboard = [
         [KeyboardButton(s["btn_timetable"])],
-        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_lang"])],
-        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_notif"])]
+        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_notif"])],
+        [KeyboardButton(s["btn_lang"]), KeyboardButton(s["btn_yordam"])]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     text = s["welcome"]
@@ -1728,11 +1749,7 @@ def callback_handler(update, context):
         guruh = data[2:]
         context.user_data["guruh"] = guruh
         query.edit_message_text(s["group_selected"].format(guruh), parse_mode="Markdown")
-        keyboard = [
-            [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_timetable"])],
-            [KeyboardButton(s["btn_back"])]
-        ]
-        context.bot.send_message(chat_id=query.message.chat_id, text=s["btn_bugun"] + " 👇", reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True))
+        return main_menu(update, context)
 
     elif data == "back_to_faculties":
         keyboard = [[InlineKeyboardButton(f, callback_data=f"f_{f}")] for f in HIERARCHY.keys()]
