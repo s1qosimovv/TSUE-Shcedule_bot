@@ -5,11 +5,8 @@ import time
 import asyncio
 import os
 import requests
-import openai
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-openai.api_key = OPENAI_API_KEY
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
@@ -24,23 +21,13 @@ STRINGS = {
         "btn_notif_on": "✅ Yoqish",
         "btn_notif_off": "❌ O'chirish",
         "btn_back": "⬅️ Orqaga",
-        "btn_timetable": "📅 Dars jadvali",
-        "btn_hemis": "📊 HEMIS",
-        "btn_ai": "🤖 AI Yordamchi",
+        "btn_timetable": "� Guruh Tanlash",
         "choose_category": "Quyidagi bo'limlardan birini tanlang:",
-        "ai_welcome": "🤖 *AI Yordamchi*\n━━━━━━━━━━━━━━━━━━\n\nMen sun'iy intellektman. Menga istalgan savolingizni berishingiz mumkin (masalan: darslarda qanday muvaffaqiyatga erishish mumkin?).\n\nSavolingizni yozing:",
-        "ai_loading": "⏳ O'ylayapman...",
-        "ai_error": "❌ Kechirasiz, AI bilan bog'lanishda xatolik yuz berdi. Keyinroq urinib ko'ring.",
         "notif_menu": "🔔 *ESLATMALAR MARKAZI*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Holat:* {}\n\n✨ Har kuni soat *08:00* da dars jadvalingizni avtomatik qabul qilishni xohlaysizmi?\n\n🚀 *Premium qulaylikdan foydalaning!*",
         "notif_status_on": "🟢 Yoqilgan",
         "notif_status_off": "🔴 O'chirilgan",
         "notif_enabled": "✅ *Muvaffaqiyatli!* Eslatmalar yoqildi. Har kuni 08:00 da dars jadvali kutib turing! 📥",
         "notif_disabled": "❌ Eslatmalar o'chirildi.",
-        "hemis_welcome": "📊 *HEMIS Tizimi*\n━━━━━━━━━━━━━━━━━━\n\nBu bo'lim orqali siz baholaringiz (GPA) va NB-laringizni ko'rishingiz mumkin.\n\n⚠️ *Eslatma:* Ma'lumotlarni olish uchun login va parolingizni kiritishingiz kerak.\n\nDavom etish uchun *ID raqamingizni* yozing:",
-        "hemis_password": "🔐 Endi *parolingizni* yozing:",
-        "hemis_loading": "⏳ Ma'lumotlar yuklanmoqda...",
-        "hemis_error": "❌ Xatolik yuz berdi: {}\n\nIltimos, ID va parolingizni tekshirib qaytadan urinib ko'ring.",
-        "hemis_stats": "📊 *HEMIS Ma'lumotlari*\n━━━━━━━━━━━━━━━━━━\n\n👤 Talaba: *{}*\n🎓 Kurs: *{}*\n📈 GPA: *{}*\n🚫 O'zlashtirish: *{}%*\n\n📉 *NB-lar:* \n— Jami: *{}* ta\n\n📚 *So'nggi baholar:* \n{}",
         "select_faculty": "🏛 *Fakultetingizni tanlang:*",
         "select_course": "🎓 *Kursni tanlang:*",
         "select_group": "👥 *Guruhingizni tanlang:*",
@@ -64,23 +51,13 @@ STRINGS = {
         "btn_lang": "🌐 Сменить язык",
         "btn_notif": "🔔 Уведомления",
         "btn_back": "⬅️ Назад",
-        "btn_timetable": "📅 Расписание",
-        "btn_hemis": "📊 HEMIS",
-        "btn_ai": "🤖 AI Помощник",
+        "btn_timetable": "� Поиск группы",
         "choose_category": "Выберите один из разделов:",
-        "ai_welcome": "🤖 *AI Помощник*\n━━━━━━━━━━━━━━━━━━\n\nЯ — искусственный интеллект. Вы можете задать мне любой вопрос (например: как добиться успеха в учебе?).\n\nНапишите свой вопрос:",
-        "ai_loading": "⏳ Я думаю...",
-        "ai_error": "❌ К сожалению, произошла ошибка при связи с AI. Попробуйте позже.",
         "notif_menu": "🔔 *ЦЕНТР УВЕДОМЛЕНИЙ*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Статус:* {}\n\n✨ Хотите получать расписание автоматически каждый день в *08:00*?\n\n🚀 *Пользуйтесь Premium удобством!*",
         "notif_status_on": "🟢 Включено",
         "notif_status_off": "🔴 Выключено",
         "notif_enabled": "✅ *Успешно!* Уведомления включены. Ждите расписание каждый день в 08:00! 📥",
         "notif_disabled": "❌ Уведомления выключены.",
-        "hemis_welcome": "📊 *Система HEMIS*\n━━━━━━━━━━━━━━━━━━\n\nВ этом разделе вы можете увидеть свои оценки (GPA) и пропуски (NB).\n\n⚠️ *Примечание:* Для получения данных необходимо ввести логин и пароль.\n\nДля продолжения введите свой *ID номер*:",
-        "hemis_password": "🔐 Теперь введите свой *пароль*:",
-        "hemis_loading": "⏳ Загрузка данных...",
-        "hemis_error": "❌ Произошла ошибка: {}\n\nПожалуйста, проверьте свой ID и пароль и попробуйте еще раз.",
-        "hemis_stats": "📊 *Данные HEMIS*\n━━━━━━━━━━━━━━━━━━\n\n👤 Студент: *{}*\n🎓 Курс: *{}*\n📈 GPA: *{}*\n🚫 Успеваемость: *{}%*\n\n📉 *Пропуски (NB):* \n— Всего: *{}*\n\n📚 *Последние оценки:* \n{}",
         "select_faculty": "🏛 *Выберите факультет:*",
         "select_course": "🎓 *Выберите курс:*",
         "select_group": "👥 *Выберите группу:*",
@@ -104,23 +81,13 @@ STRINGS = {
         "btn_lang": "🌐 Change Language",
         "btn_notif": "🔔 Notifications",
         "btn_back": "⬅️ Back",
-        "btn_timetable": "📅 Timetable",
-        "btn_hemis": "📊 HEMIS",
-        "btn_ai": "🤖 AI Assistant",
-        "choose_category": "Choose one of the sections:",
-        "ai_welcome": "🤖 *AI Assistant*\n━━━━━━━━━━━━━━━━━━\n\nI am an AI. You can ask me any question (e.g., how to succeed in your studies?).\n\nType your question:",
-        "ai_loading": "⏳ I'm thinking...",
-        "ai_error": "❌ Sorry, an error occurred while connecting to AI. Please try again later.",
-        "notif_menu": "🔔 *NOTIFICATIONS CENTER*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Status:* {}\n\n✨ Want to receive your timetable automatically every day at *08:00*?\n\n🚀 *Enjoy Premium convenience!*",
+        "btn_timetable": "� Select Group",
+        "choose_category": "Please select a section:",
+        "notif_menu": "🔔 *NOTIFICATIONS CENTER*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Status:* {}\n\n✨ Do you want to receive your timetable automatically every day at *08:00*?\n\n🚀 *Enjoy Premium convenience!*",
         "notif_status_on": "🟢 Enabled",
         "notif_status_off": "🔴 Disabled",
         "notif_enabled": "✅ *Success!* Notifications enabled. Expect your timetable every day at 08:00! 📥",
         "notif_disabled": "❌ Notifications disabled.",
-        "hemis_welcome": "📊 *HEMIS System*\n━━━━━━━━━━━━━━━━━━\n\nYou can view your grades (GPA) and absences (NBs) in this section.\n\n⚠️ *Note:* You need to enter your HEMIS login and password.\n\nPlease enter your *ID number* to continue:",
-        "hemis_password": "🔐 Now enter your *password*:",
-        "hemis_loading": "⏳ Loading data...",
-        "hemis_error": "❌ An error occurred: {}\n\nPlease check your ID and password and try again.",
-        "hemis_stats": "📊 *HEMIS Data*\n━━━━━━━━━━━━━━━━━━\n\n👤 Student: *{}*\n🎓 Course: *{}*\n📈 GPA: *{}*\n🚫 Performance: *{}%*\n\n📉 *Absences (NBs):* \n— Total: *{}*\n\n📚 *Recent Grades:* \n{}",
         "select_faculty": "🏛 *Select Faculty:*",
         "select_course": "🎓 *Select Course:*",
         "select_group": "👥 *Select Group:*",
@@ -1610,79 +1577,7 @@ GROUPS_LIST = sorted(GROUP_IDS.keys())
 print(f"✅ {len(GROUP_IDS)} ta guruh ID yuklandi")
 
 
-class HemisAPI:
-    def __init__(self, login, password):
-        self.login = login
-        self.password = password
-        self.base_url = "https://student.tsue.uz/rest/v1"
-        self.token = None
 
-    def authenticate(self):
-        try:
-            url = f"{self.base_url}/data/login"
-            response = requests.post(url, json={"login": self.login, "password": self.password}, timeout=15)
-            if response.status_code == 200:
-                data = response.json()
-                if data.get("success"):
-                    self.token = data.get("data", {}).get("token")
-                    return True
-            return False
-        except Exception:
-            return False
-
-    def get_performance(self):
-        if not self.token: return None
-        try:
-            headers = {"Authorization": f"Bearer {self.token}"}
-            url = f"{self.base_url}/student/performance"
-            response = requests.get(url, headers=headers, timeout=15)
-            if response.status_code == 200:
-                return response.json().get("data", {})
-            return None
-        except Exception:
-            return None
-
-    def get_attendance(self):
-        if not self.token: return None
-        try:
-            headers = {"Authorization": f"Bearer {self.token}"}
-            url = f"{self.base_url}/student/attendance"
-            response = requests.get(url, headers=headers, timeout=15)
-            if response.status_code == 200:
-                return response.json().get("data", {})
-            return None
-        except Exception:
-            return None
-
-    def get_me(self):
-        if not self.token: return None
-        try:
-            headers = {"Authorization": f"Bearer {self.token}"}
-            url = f"{self.base_url}/student/me"
-            response = requests.get(url, headers=headers, timeout=15)
-            if response.status_code == 200:
-                return response.json().get("data", {})
-            return None
-        except Exception:
-            return None
-
-
-def ask_ai(question):
-    if not OPENAI_API_KEY:
-        return None
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Sen TSUE (Toshkent Davlat Iqtisodiyot Universiteti) talabalari uchun yordamchi botsan. Savollarga qisqa, aniq va do'stona javob ber."},
-                {"role": "user", "content": question}
-            ],
-            max_tokens=500,
-            temperature=0.7
-        )
-        return response.choices[0].message.content
-    except Exception:
-        return None
 
 
 
@@ -1762,10 +1657,9 @@ def main_menu(update, context):
     lang = context.user_data.get("lang", "uz")
     s = STRINGS[lang]
     keyboard = [
-        [KeyboardButton(s["btn_timetable"]), KeyboardButton(s["btn_hemis"])],
-        [KeyboardButton(s["btn_ai"])],
-        [KeyboardButton(s["btn_lang"]), KeyboardButton(s["btn_yordam"])],
-        [KeyboardButton(s["btn_notif"])]
+        [KeyboardButton(s["btn_timetable"])],
+        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_lang"])],
+        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_notif"])]
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     text = s["welcome"]
@@ -1781,11 +1675,11 @@ def start(update, context):
     return main_menu(update, context)
 
 def choose_language(update, context):
-    keyboard = [[
-        InlineKeyboardButton("🇺🇿", callback_data="lang_uz"),
-        InlineKeyboardButton("🇷🇺", callback_data="lang_ru"),
-        InlineKeyboardButton("🇺🇸", callback_data="lang_en")
-    ]]
+    keyboard = [
+        [InlineKeyboardButton("🇺🇿 O'zbekcha", callback_data="lang_uz")],
+        [InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru")],
+        [InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")]
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     msg_text = "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
     if update.callback_query:
@@ -1894,9 +1788,7 @@ def message_handler(update, context):
 
     handlers = {
         tuple([STRINGS[l]["btn_timetable"] for l in STRINGS]): lambda: set_timetable_category(update, context),
-        tuple([STRINGS[l]["btn_hemis"] for l in STRINGS]): lambda: (update.message.reply_text(s["hemis_welcome"], parse_mode="Markdown"), context.user_data.update({"hemis_step": "login"})),
-        tuple([STRINGS[l]["btn_ai"] for l in STRINGS]): lambda: (update.message.reply_text(s["ai_welcome"], parse_mode="Markdown"), context.user_data.update({"ai_step": "waiting_question"})),
-        tuple([STRINGS[l]["btn_back"] for l in STRINGS]): lambda: (context.user_data.update({"ai_step": None, "hemis_step": None}), main_menu(update, context)),
+        tuple([STRINGS[l]["btn_back"] for l in STRINGS]): lambda: main_menu(update, context),
         tuple([STRINGS[l]["btn_bugun"] for l in STRINGS]): lambda: bugun_handler(update, context),
         tuple([STRINGS[l]["btn_lang"] for l in STRINGS]): lambda: choose_language(update, context),
         tuple([STRINGS[l]["btn_yordam"] for l in STRINGS]): lambda: update.message.reply_text(s["help_text"], parse_mode="Markdown"),
@@ -1907,42 +1799,6 @@ def message_handler(update, context):
 
     for buttons, func in handlers.items():
         if text in buttons: return func()
-
-    hemis_step = context.user_data.get("hemis_step")
-    if hemis_step == "login":
-        context.user_data["hemis_login"] = text
-        update.message.reply_text(s["hemis_password"], parse_mode="Markdown")
-        context.user_data["hemis_step"] = "password"
-        return
-    elif hemis_step == "password":
-        login = context.user_data.get("hemis_login")
-        password = text
-        try: update.message.delete()
-        except: pass
-        msg = update.message.reply_text(s["hemis_loading"])
-        api = HemisAPI(login, password)
-        if api.authenticate():
-            me, perf, att = api.get_me(), api.get_performance(), api.get_attendance()
-            if me and perf is not None:
-                subs = ""
-                if isinstance(perf, list):
-                    for sub in perf[:5]: subs += f"— {sub.get('subject', {}).get('name', 'Fan')}: *{sub.get('grade', '-')}*\n"
-                nb = sum(int(a.get("absent_on", 0)) for a in att) if isinstance(att, list) else 0
-                update.message.reply_text(s["hemis_stats"].format(me.get("full_name", "-"), me.get("level", {}).get("name", "-"), "-", "-", nb, subs), parse_mode="Markdown")
-            else: update.message.reply_text(s["hemis_error"].format("Ma'lumot topilmadi"))
-        else: update.message.reply_text(s["hemis_error"].format("Login xato"))
-        context.user_data["hemis_step"] = None; msg.delete(); return
-
-    ai_step = context.user_data.get("ai_step")
-    if ai_step == "waiting_question":
-        msg = update.message.reply_text(STRINGS[lang]["ai_loading"])
-        response = ask_ai(text)
-        if response:
-            update.message.reply_text(f"🤖 *AI:* \n\n{response}", parse_mode="Markdown")
-        else:
-            update.message.reply_text(STRINGS[lang]["ai_error"])
-        msg.delete()
-        return
 
     user_text = text.strip().upper()
     for g in GROUP_IDS.keys():
