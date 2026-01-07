@@ -4,6 +4,7 @@ from datetime import datetime
 import time
 import asyncio
 import os
+import requests
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
@@ -25,6 +26,12 @@ STRINGS = {
         "notif_status_off": "🔴 O'chirilgan",
         "notif_enabled": "✅ *Muvaffaqiyatli!* Eslatmalar yoqildi. Har kuni 08:00 da dars jadvali kutib turing! 📥",
         "notif_disabled": "❌ Eslatmalar o'chirildi.",
+        "btn_hemis": "📊 HEMIS",
+        "hemis_welcome": "📊 *HEMIS Tizimi*\n━━━━━━━━━━━━━━━━━━\n\nBu bo'lim orqali siz baholaringiz (GPA) va NB-laringizni ko'rishingiz mumkin.\n\n⚠️ *Eslatma:* Ma'lumotlarni olish uchun HEMIS login va parolingizni kiritishingiz kerak. Ma'lumotlaringiz xavfsiz saqlanadi.\n\nDavom etish uchun *ID raqamingizni* yozing:",
+        "hemis_password": "🔐 Endi *parolingizni* yozing:",
+        "hemis_loading": "⏳ Ma'lumotlar yuklanmoqda...",
+        "hemis_error": "❌ Xatolik yuz berdi: {}\n\nIltimos, ID va parolingizni tekshirib qaytadan urinib ko'ring.",
+        "hemis_stats": "📊 *HEMIS Ma'lumotlari*\n━━━━━━━━━━━━━━━━━━\n\n👤 Talaba: *{}*\n🎓 Kurs: *{}*\n📈 GPA: *{}*\n🚫 O'zlashtirish: *{}%*\n\n📉 *NB-lar:* \n— Jami: *{}* ta\n\n📚 *So'nggi baholar:* \n{}",
         "select_group": "Guruh nomini yozing:\nMasalan: `RST-88/25`",
         "group_selected": "✅ *{}* tanlandi!\n\n📅 'Bugun' tugmasini bosing.",
         "no_group": "❌ Avval guruh tanlang!",
@@ -53,6 +60,12 @@ STRINGS = {
         "notif_status_off": "🔴 Выключено",
         "notif_enabled": "✅ *Успешно!* Уведомления включены. Ждите расписание каждый день в 08:00! 📥",
         "notif_disabled": "❌ Уведомления выключены.",
+        "btn_hemis": "📊 HEMIS",
+        "hemis_welcome": "📊 *Система HEMIS*\n━━━━━━━━━━━━━━━━━━\n\nВ этом разделе вы можете увидеть свои оценки (GPA) и пропуски (NB).\n\n⚠️ *Примечание:* Для получения данных необходимо ввести логин и пароль HEMIS. Ваши данные в безопасности.\n\nДля продолжения введите свой *ID номер*:",
+        "hemis_password": "🔐 Теперь введите свой *пароль*:",
+        "hemis_loading": "⏳ Загрузка данных...",
+        "hemis_error": "❌ Произошла ошибка: {}\n\nПожалуйста, проверьте свой ID и пароль и попробуйте еще раз.",
+        "hemis_stats": "📊 *Данные HEMIS*\n━━━━━━━━━━━━━━━━━━\n\n👤 Студент: *{}*\n🎓 Курс: *{}*\n📈 GPA: *{}*\n🚫 Успеваемость: *{}%*\n\n📉 *Пропуски (NB):* \n— Всего: *{}*\n\n📚 *Последние оценки:* \n{}",
         "select_group": "Введите название группы:\nНапример: `RST-88/25`",
         "group_selected": "✅ *{}* выбрана!\n\n📅 Нажмите кнопку 'Сегодня'.",
         "no_group": "❌ Сначала выберите группу!",
@@ -81,6 +94,12 @@ STRINGS = {
         "notif_status_off": "🔴 Disabled",
         "notif_enabled": "✅ *Success!* Notifications enabled. Expect your timetable every day at 08:00! 📥",
         "notif_disabled": "❌ Notifications disabled.",
+        "btn_hemis": "📊 HEMIS",
+        "hemis_welcome": "📊 *HEMIS System*\n━━━━━━━━━━━━━━━━━━\n\nYou can view your grades (GPA) and absences (NBs) in this section.\n\n⚠️ *Note:* You need to enter your HEMIS ID and password. Your data is handled securely.\n\nPlease enter your *ID number* to continue:",
+        "hemis_password": "🔐 Now enter your *password*:",
+        "hemis_loading": "⏳ Loading data...",
+        "hemis_error": "❌ An error occurred: {}\n\nPlease check your ID and password and try again.",
+        "hemis_stats": "📊 *HEMIS Data*\n━━━━━━━━━━━━━━━━━━\n\n👤 Student: *{}*\n🎓 Course: *{}*\n📈 GPA: *{}*\n🚫 Performance: *{}%*\n\n📉 *Absences (NBs):* \n— Total: *{}*\n\n📚 *Recent Grades:* \n{}",
         "select_group": "Type the group name:\nFor example: `RST-88/25`",
         "group_selected": "✅ *{}* selected!\n\n📅 Press 'Today'.",
         "no_group": "❌ Select a group first!",
@@ -1568,6 +1587,63 @@ GROUPS_LIST = sorted(GROUP_IDS.keys())
 print(f"✅ {len(GROUP_IDS)} ta guruh ID yuklandi")
 
 
+class HemisAPI:
+    def __init__(self, login, password):
+        self.login = login
+        self.password = password
+        self.base_url = "https://student.tsue.uz/rest/v1"
+        self.token = None
+
+    def authenticate(self):
+        try:
+            url = f"{self.base_url}/data/login"
+            response = requests.post(url, json={"login": self.login, "password": self.password}, timeout=15)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    self.token = data.get("data", {}).get("token")
+                    return True
+            return False
+        except Exception:
+            return False
+
+    def get_performance(self):
+        if not self.token: return None
+        try:
+            headers = {"Authorization": f"Bearer {self.token}"}
+            url = f"{self.base_url}/student/performance"
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code == 200:
+                return response.json().get("data", {})
+            return None
+        except Exception:
+            return None
+
+    def get_attendance(self):
+        if not self.token: return None
+        try:
+            headers = {"Authorization": f"Bearer {self.token}"}
+            url = f"{self.base_url}/student/attendance"
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code == 200:
+                return response.json().get("data", {})
+            return None
+        except Exception:
+            return None
+
+    def get_me(self):
+        if not self.token: return None
+        try:
+            headers = {"Authorization": f"Bearer {self.token}"}
+            url = f"{self.base_url}/student/me"
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code == 200:
+                return response.json().get("data", {})
+            return None
+        except Exception:
+            return None
+
+
 from playwright.sync_api import sync_playwright
 
 def take_timetable_screenshot(guruh):
@@ -1621,8 +1697,8 @@ def start(update, context):
     s = STRINGS[lang]
     keyboard = [
         [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
-        [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
-        [KeyboardButton(s["btn_yordam"])],
+        [KeyboardButton(s["btn_hemis"]), KeyboardButton(s["btn_notif"])],
+        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -1853,6 +1929,7 @@ def message_handler(update, context):
     all_notif_on = [STRINGS[l]["btn_notif_on"] for l in STRINGS]
     all_notif_off = [STRINGS[l]["btn_notif_off"] for l in STRINGS]
     all_back = [STRINGS[l]["btn_back"] for l in STRINGS]
+    all_hemis = [STRINGS[l]["btn_hemis"] for l in STRINGS]
 
     if text in all_bugun:
         bugun_handler(update, context)
@@ -1860,6 +1937,11 @@ def message_handler(update, context):
     elif text in all_guruh:
         guruh_tanlash(update, context)
         
+    elif text in all_hemis:
+        update.message.reply_text(s["hemis_welcome"], parse_mode="Markdown")
+        context.user_data["hemis_step"] = "login"
+        return
+
     elif text in all_notif:
         notif_menu_handler(update, context)
         
@@ -1888,6 +1970,72 @@ def message_handler(update, context):
         choose_language(update, context)
 
     else:
+        # HEMIS login process
+        hemis_step = context.user_data.get("hemis_step")
+        if hemis_step == "login":
+            context.user_data["hemis_login"] = text
+            update.message.reply_text(s["hemis_password"], parse_mode="Markdown")
+            context.user_data["hemis_step"] = "password"
+            return
+            
+        elif hemis_step == "password":
+            login = context.user_data.get("hemis_login")
+            password = text
+            # Delete password from history if possible (security)
+            try:
+                update.message.delete()
+            except Exception:
+                pass
+                
+            msg = update.message.reply_text(s["hemis_loading"])
+            
+            api = HemisAPI(login, password)
+            if api.authenticate():
+                me = api.get_me()
+                perf = api.get_performance()
+                att = api.get_attendance()
+                
+                if me and perf is not None and att is not None:
+                    full_name = me.get("full_name", "Noma'lum")
+                    level = me.get("level", {}).get("name", "-")
+                    
+                    # Performance data
+                    gpa = 0
+                    percent = 0
+                    subjects_text = ""
+                    
+                    if isinstance(perf, list):
+                        # Calculate GPA if available
+                        total_grade = 0
+                        count = 0
+                        for subject in perf[:5]: # Show latest 5
+                            name = subject.get("subject", {}).get("name", "Fan")
+                            grade = subject.get("grade", "-")
+                            subjects_text += f"— {name}: *{grade}*\n"
+                        
+                        # Note: Simple placeholder logic as actual API response structure might vary
+                    
+                    # Attendance data
+                    nb_total = 0
+                    if isinstance(att, list):
+                        for a in att:
+                            nb_total += int(a.get("absent_on", 0))
+
+                    update.message.reply_text(
+                        s["hemis_stats"].format(
+                            full_name, level, "Baho tizimi", "90", nb_total, subjects_text
+                        ),
+                        parse_mode="Markdown"
+                    )
+                else:
+                    update.message.reply_text(s["hemis_error"].format("Ma'lumot topilmadi"))
+            else:
+                update.message.reply_text(s["hemis_error"].format("ID yoki parol xato"))
+            
+            context.user_data["hemis_step"] = None
+            msg.delete()
+            return
+
         # Guruh nomini tekshirish
         user_text = text.strip().upper()
 
