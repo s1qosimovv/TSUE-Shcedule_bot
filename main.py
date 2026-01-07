@@ -10,6 +10,8 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
+print("🚀 Bot v2.0-Fixed is starting...")
+
 STRINGS = {
     "uz": {
         "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Quyidagi bo'limlardan birini tanlang:",
@@ -21,7 +23,7 @@ STRINGS = {
         "btn_notif_on": "✅ Yoqish",
         "btn_notif_off": "❌ O'chirish",
         "btn_back": "⬅️ Orqaga",
-        "btn_timetable": "� Guruh Tanlash",
+        "btn_timetable": "🔍 Guruh Tanlash",
         "choose_category": "Quyidagi bo'limlardan birini tanlang:",
         "notif_menu": "🔔 *ESLATMALAR MARKAZI*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Holat:* {}\n\n✨ Har kuni soat *08:00* da dars jadvalingizni avtomatik qabul qilishni xohlaysizmi?\n\n🚀 *Premium qulaylikdan foydalaning!*",
         "notif_status_on": "🟢 Yoqilgan",
@@ -38,7 +40,7 @@ STRINGS = {
         "error_screenshot": "❌ Rasm olinmadi\n\nXatolik: {}\n\n🔗 Saytda ko‘ring:",
         "error_sending": "❌ Rasm yuborishda xatolik: {}",
         "today_caption": "📅 *Bugungi jadval*\n👥 *{}*\n📆 {}\n\n🔗 [Saytda ko‘rish]({})",
-        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalanish qulay?*\n1️⃣ `� Dars jadvali` bo'limiga kiring\n2️⃣ Fakultet va kursingizni tanlang\n3️⃣ `📅 Bugun` tugmasini bosing\n\n‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv",
+        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalanish qulay?*\n1️⃣ `🔍 Guruh Tanlash` bo'limiga kiring\n2️⃣ Fakultet va kursingizni tanlang\n3️⃣ `📅 Bugun` tugmasini bosing\n\n‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv",
         "days": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba", "Yakshanba"],
         "lang_selected": "✅ Oʻzbek tili tanlandi!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
@@ -51,7 +53,7 @@ STRINGS = {
         "btn_lang": "🌐 Сменить язык",
         "btn_notif": "🔔 Уведомления",
         "btn_back": "⬅️ Назад",
-        "btn_timetable": "� Поиск группы",
+        "btn_timetable": "🔍 Поиск группы",
         "choose_category": "Выберите один из разделов:",
         "notif_menu": "🔔 *ЦЕНТР УВЕДОМЛЕНИЙ*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Статус:* {}\n\n✨ Хотите получать расписание автоматически каждый день в *08:00*?\n\n🚀 *Пользуйтесь Premium удобством!*",
         "notif_status_on": "🟢 Включено",
@@ -68,7 +70,7 @@ STRINGS = {
         "error_screenshot": "❌ Изображение не получено\n\nОшибка: {}\n\n🔗 Посмотреть на сайте:",
         "error_sending": "❌ Ошибка при отправке фото: {}",
         "today_caption": "📅 *Расписание на сегодня*\n👥 *{}*\n📆 {}\n\n🔗 [Посмотреть на сайте]({})",
-        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `� Расписание` — выберите свой раздел\n2️⃣ Выберите факультет и курс\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n👨‍💻 *Контакты:*\n👉 @sqosimovv",
+        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `🔍 Поиск группы` — выберите свой раздел\n2️⃣ Выберите факультет и курс\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n👨‍💻 *Контакты:*\n👉 @sqosimovv",
         "days": ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
         "lang_selected": "✅ Выбран русский язык!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
@@ -81,7 +83,7 @@ STRINGS = {
         "btn_lang": "🌐 Change Language",
         "btn_notif": "🔔 Notifications",
         "btn_back": "⬅️ Back",
-        "btn_timetable": "� Select Group",
+        "btn_timetable": "🔍 Select Group",
         "choose_category": "Please select a section:",
         "notif_menu": "🔔 *NOTIFICATIONS CENTER*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Status:* {}\n\n✨ Do you want to receive your timetable automatically every day at *08:00*?\n\n🚀 *Enjoy Premium convenience!*",
         "notif_status_on": "🟢 Enabled",
@@ -98,7 +100,7 @@ STRINGS = {
         "error_screenshot": "❌ Image failed\n\nError: {}\n\n🔗 View on site:",
         "error_sending": "❌ Error sending photo: {}",
         "today_caption": "📅 *Today's Timetable*\n👥 *{}*\n📆 {}\n\n🔗 [View on site]({})",
-        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ Go to `� Timetable` section\n2️⃣ Select your faculty and course\n3️⃣ Press the `📅 Today` button\n\n👨‍💻 *Contact:*\n👉 @sqosimovv",
+        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ Go to `🔍 Select Group` section\n2️⃣ Select your faculty and course\n3️⃣ Press the `📅 Today` button\n\n👨‍💻 *Contact:*\n👉 @sqosimovv",
         "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         "lang_selected": "✅ English language selected!",
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
