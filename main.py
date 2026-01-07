@@ -7,7 +7,7 @@ import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
-BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class="
+BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
 STRINGS = {
     "uz": {
@@ -1576,16 +1576,10 @@ def take_timetable_screenshot(guruh):
         file_path = f"/tmp/{guruh}.png"
 
         with sync_playwright() as p:
-            # Launcher arguments for server environments
-            browser = p.chromium.launch(
-                headless=True,
-                args=["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
-            )
+            browser = p.chromium.launch(headless=True)
             page = browser.new_page(viewport={"width": 1920, "height": 1080})
-            
-            # Shorter timeout for initial load, then wait for content
-            page.goto(url, timeout=30000)
-            page.wait_for_timeout(7000)
+            page.goto(url, timeout=60000)
+            page.wait_for_timeout(5000)
 
             # Edupage jadval elementini topish (bir nechta variant)
             selectors = [
