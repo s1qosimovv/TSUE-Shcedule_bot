@@ -10,7 +10,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
-print("🚀 Bot v2.1-Docker is starting...")
+print("🚀 Bot v2.2-Final is starting...")
 
 STRINGS = {
     "uz": {
@@ -1817,8 +1817,11 @@ def message_handler(update, context):
     }
 
     for buttons, func in handlers.items():
-        if text in buttons: return func()
-
+        if text in buttons:
+            print(f"Debug: Match found for '{text}'")
+            return func()
+    
+    print(f"Debug: No button match for '{text}' (UTF-8: {text.encode('utf-8')})")
     user_text = text.strip().upper()
     for g in GROUP_IDS.keys():
         if g.upper() == user_text:
@@ -1842,6 +1845,9 @@ def broadcast(update, context):
         except: err += 1
     m.edit_text(f"✅ Tugadi\n➕ {ok}\n➖ {err}", parse_mode="Markdown")
 
+def version_cmd(update, context):
+    update.message.reply_text("✅ Bot Version: `v2.2-Final`", parse_mode="Markdown")
+
 def main():
     from telegram.ext import PicklePersistence
     persistence = PicklePersistence(filename='bot_data.pickle')
@@ -1850,6 +1856,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("stats", stats))
     dp.add_handler(CommandHandler("send", broadcast))
+    dp.add_handler(CommandHandler("v", version_cmd))
     dp.add_handler(CallbackQueryHandler(callback_handler))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
     
