@@ -15,6 +15,15 @@ STRINGS = {
         "btn_guruh": "🔍 Guruh Tanlash",
         "btn_yordam": "ℹ️ Yordam",
         "btn_lang": "🌐 Tilni o'zgartirish",
+        "btn_notif": "🔔 Eslatmalar",
+        "btn_notif_on": "✅ Yoqish",
+        "btn_notif_off": "❌ O'chirish",
+        "btn_back": "⬅️ Orqaga",
+        "notif_menu": "🔔 *Eslatmalar bo'limi*\n\nHolat: {}\n\nHar kuni soat 08:00 da dars jadvalingizni avtomatik olishni xohlaysizmi?",
+        "notif_status_on": "Yoqilgan",
+        "notif_status_off": "O'chirilgan",
+        "notif_enabled": "✅ Eslatmalar yoqildi! Har kuni 08:00 da dars jadvali yuboriladi.",
+        "notif_disabled": "❌ Eslatmalar o'chirildi.",
         "select_group": "Guruh nomini yozing:\nMasalan: `RST-88/25`",
         "group_selected": "✅ *{}* tanlandi!\n\n📅 'Bugun' tugmasini bosing.",
         "no_group": "❌ Avval guruh tanlang!",
@@ -34,6 +43,15 @@ STRINGS = {
         "btn_guruh": "🔍 Выбор группы",
         "btn_yordam": "ℹ️ Помощь",
         "btn_lang": "🌐 Сменить язык",
+        "btn_notif": "🔔 Уведомления",
+        "btn_notif_on": "✅ Включить",
+        "btn_notif_off": "❌ Выключить",
+        "btn_back": "⬅️ Назад",
+        "notif_menu": "🔔 *Раздел уведомлений*\n\nСтатус: {}\n\nХотите получать расписание автоматически каждый день в 08:00?",
+        "notif_status_on": "Включено",
+        "notif_status_off": "Выключено",
+        "notif_enabled": "✅ Уведомления включены! Расписание будет отправляться каждый день в 08:00.",
+        "notif_disabled": "❌ Уведомления выключены.",
         "select_group": "Введите название группы:\nНапример: `RST-88/25`",
         "group_selected": "✅ *{}* выбрана!\n\n📅 Нажмите кнопку 'Сегодня'.",
         "no_group": "❌ Сначала выберите группу!",
@@ -53,6 +71,15 @@ STRINGS = {
         "btn_guruh": "🔍 Select Group",
         "btn_yordam": "ℹ️ Help",
         "btn_lang": "🌐 Change Language",
+        "btn_notif": "🔔 Notifications",
+        "btn_notif_on": "✅ Turn ON",
+        "btn_notif_off": "❌ Turn OFF",
+        "btn_back": "⬅️ Back",
+        "notif_menu": "🔔 *Notifications Section*\n\nStatus: {}\n\nDo you want to receive your timetable automatically every day at 08:00?",
+        "notif_status_on": "Enabled",
+        "notif_status_off": "Disabled",
+        "notif_enabled": "✅ Notifications enabled! Timetable will be sent every day at 08:00.",
+        "notif_disabled": "❌ Notifications disabled.",
         "select_group": "Type the group name:\nFor example: `RST-88/25`",
         "group_selected": "✅ *{}* selected!\n\n📅 Press 'Today'.",
         "no_group": "❌ Select a group first!",
@@ -1593,7 +1620,8 @@ def start(update, context):
     s = STRINGS[lang]
     keyboard = [
         [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
-        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
+        [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
+        [KeyboardButton(s["btn_yordam"])],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
@@ -1602,6 +1630,75 @@ def start(update, context):
         parse_mode="Markdown",
         reply_markup=reply_markup,
     )
+
+def notif_menu_handler(update, context):
+    """Notification settings menu"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    is_enabled = context.user_data.get("notif_enabled", False)
+    status_text = s["notif_status_on"] if is_enabled else s["notif_status_off"]
+    
+    keyboard = [
+        [KeyboardButton(s["btn_notif_on"]), KeyboardButton(s["btn_notif_off"])],
+        [KeyboardButton(s["btn_back"])]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
+    update.message.reply_text(
+        s["notif_menu"].format(status_text),
+        parse_mode="Markdown",
+        reply_markup=reply_markup
+    )
+
+def daily_notification_callback(context):
+    """Job callback to send daily schedules"""
+    job = context.job
+    chat_id = job.context['chat_id']
+    user_data = context.dispatcher.user_data.get(chat_id, {})
+    
+    lang = user_data.get("lang", "uz")
+    guruh = user_data.get("guruh")
+    s = STRINGS[lang]
+    
+    if not guruh:
+        return
+        
+    filepath, error = take_timetable_screenshot(guruh)
+    if not error and filepath:
+        try:
+            kun = datetime.now().weekday()
+            # Skip Sunday
+            if kun == 6:
+                return
+                
+            kun_nomi = s["days"][kun]
+            caption = s["today_caption"].format(guruh, kun_nomi, f"{BASE_URL}{GROUP_IDS[guruh]}")
+            
+            with open(filepath, "rb") as photo:
+                context.bot.send_photo(chat_id=chat_id, photo=photo, caption=caption, parse_mode="Markdown")
+            os.remove(filepath)
+        except Exception:
+            pass
+
+def update_notification_job(chat_id, context, enable=True):
+    """Add or remove the notification job"""
+    job_name = f"daily_notif_{chat_id}"
+    current_jobs = context.job_queue.get_jobs_by_name(job_name)
+    
+    for job in current_jobs:
+        job.schedule_removal()
+        
+    if enable:
+        # Schedule daily at 08:00
+        from datetime import time as dt_time
+        target_time = dt_time(8, 0, 0)
+        context.job_queue.run_daily(
+            daily_notification_callback,
+            time=target_time,
+            days=(0, 1, 2, 3, 4, 5), # Mon-Sat
+            name=job_name,
+            context={"chat_id": chat_id}
+        )
 
 def choose_language(update, context):
     """Language selection menu"""
@@ -1750,12 +1847,34 @@ def message_handler(update, context):
     all_guruh = [STRINGS[l]["btn_guruh"] for l in STRINGS]
     all_yordam = [STRINGS[l]["btn_yordam"] for l in STRINGS]
     all_lang = [STRINGS[l]["btn_lang"] for l in STRINGS]
+    all_notif = [STRINGS[l]["btn_notif"] for l in STRINGS]
+    all_notif_on = [STRINGS[l]["btn_notif_on"] for l in STRINGS]
+    all_notif_off = [STRINGS[l]["btn_notif_off"] for l in STRINGS]
+    all_back = [STRINGS[l]["btn_back"] for l in STRINGS]
 
     if text in all_bugun:
         bugun_handler(update, context)
         
     elif text in all_guruh:
         guruh_tanlash(update, context)
+        
+    elif text in all_notif:
+        notif_menu_handler(update, context)
+        
+    elif text in all_notif_on:
+        context.user_data["notif_enabled"] = True
+        update_notification_job(update.message.chat_id, context, enable=True)
+        update.message.reply_text(s["notif_enabled"])
+        start(update, context)
+        
+    elif text in all_notif_off:
+        context.user_data["notif_enabled"] = False
+        update_notification_job(update.message.chat_id, context, enable=False)
+        update.message.reply_text(s["notif_disabled"])
+        start(update, context)
+        
+    elif text in all_back:
+        start(update, context)
 
     elif text in all_yordam:
         update.message.reply_text(
@@ -1794,8 +1913,30 @@ def main():
     print("📸 Screenshot rejimi")
     print("============================================================")
 
-    updater = Updater(BOT_TOKEN, use_context=True)
+    from telegram.ext import PicklePersistence
+    persistence = PicklePersistence(filename='bot_data.pickle')
+
+    updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
     dp = updater.dispatcher
+
+    # Restart jobs for users who have them enabled
+    job_queue = updater.job_queue
+    def restore_jobs(dispatcher):
+        chat_ids = dispatcher.user_data.keys()
+        for chat_id in chat_ids:
+            u_data = dispatcher.user_data.get(chat_id, {})
+            if u_data.get("notif_enabled", False):
+                # Manual job reconstruction since objects aren't persisted well
+                job_name = f"daily_notif_{chat_id}"
+                from datetime import time as dt_time
+                target_time = dt_time(8, 0, 0)
+                job_queue.run_daily(
+                    daily_notification_callback,
+                    time=target_time,
+                    days=(0, 1, 2, 3, 4, 5),
+                    name=job_name,
+                    context={"chat_id": chat_id}
+                )
 
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("guruh", guruh_tanlash))
@@ -1803,6 +1944,10 @@ def main():
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
 
     print("✅ Ishga tushdi!")
+    
+    # Restore jobs after start
+    restore_jobs(dp)
+    
     updater.start_polling()
     updater.idle()
 
