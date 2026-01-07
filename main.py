@@ -1493,8 +1493,22 @@ def take_timetable_screenshot(guruh):
             page.goto(url, timeout=60000)
             page.wait_for_timeout(5000)
             
-            # Faqat jadval elementini topish va screenshot qilish
-            timetable = page.query_selector('table.main-table, table[class*="timetable"], .timetable-container table, table')
+            # Edupage jadval elementini topish (bir nechta variant)
+            selectors = [
+                '.section',  # Edupage asosiy jadval konteyner
+                '#main',
+                'div.main',
+                'div[class*="timetable"]',
+                '.timetableContent',
+                'table.main-table',
+                'table'  # Oxirgi variant
+            ]
+            
+            timetable = None
+            for selector in selectors:
+                timetable = page.query_selector(selector)
+                if timetable:
+                    break
             
             if timetable:
                 timetable.screenshot(path=file_path)
