@@ -6,7 +6,95 @@ import asyncio
 import os
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
+
+STRINGS = {
+    "uz": {
+        "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Ushbu bot orqali siz *dars jadvalingizni rasm ko‘rinishida* ko‘rishingiz mumkin.\n\n👉 Boshlash uchun:\n🔍 *Guruh Tanlash* tugmasini bosing\nyoki guruh nomini yozing (masalan: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Yaratuvchi: @sqosimovv",
+        "btn_bugun": "📅 Bugun",
+        "btn_guruh": "🔍 Guruh Tanlash",
+        "btn_yordam": "ℹ️ Yordam",
+        "btn_lang": "🌐 Tilni o'zgartirish",
+        "btn_notif": "🔔 Eslatmalar",
+        "btn_notif_on": "✅ Yoqish",
+        "btn_notif_off": "❌ O'chirish",
+        "btn_back": "⬅️ Orqaga",
+        "notif_menu": "🔔 *Eslatmalar bo'limi*\n\nHolat: {}\n\nHar kuni soat 08:00 da dars jadvalingizni avtomatik olishni xohlaysizmi?",
+        "notif_status_on": "Yoqilgan",
+        "notif_status_off": "O'chirilgan",
+        "notif_enabled": "✅ Eslatmalar yoqildi! Har kuni 08:00 da dars jadvali yuboriladi.",
+        "notif_disabled": "❌ Eslatmalar o'chirildi.",
+        "select_group": "Guruh nomini yozing:\nMasalan: `RST-88/25`",
+        "group_selected": "✅ *{}* tanlandi!\n\n📅 'Bugun' tugmasini bosing.",
+        "no_group": "❌ Avval guruh tanlang!",
+        "group_not_found": "⚠️ {} topilmadi. To‘g‘ri yozing.",
+        "taking_screenshot": "📸 Jadval rasmi olinmoqda...",
+        "error_screenshot": "❌ Rasm olinmadi\n\nXatolik: {}\n\n🔗 Saytda ko‘ring:",
+        "error_sending": "❌ Rasm yuborishda xatolik: {}",
+        "today_caption": "📅 *Bugungi jadval*\n👥 *{}*\n📆 {}\n\n🔗 [Saytda ko‘rish]({})",
+        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalaniladi?*\n1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n3️⃣ `📅 Bugun` tugmasini bosing\n\n📸 Natija:\n— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n⚠️ *Eslatma:*\n— Avval guruh tanlanmasa, jadval chiqmaydi\n— Guruh nomini to‘g‘ri yozing\n\n👨‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Botdan unumli foydalaning!",
+        "days": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba", "Yakshanba"],
+        "lang_selected": "✅ O'zbek tili tanlandi!",
+        "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
+    },
+    "ru": {
+        "welcome": "🎓 *Бот Расписания ТГЭУ*\n\nЗдравствуйте! 👋\n\n📌 С помощью этого бота вы можете увидеть свое *расписание в виде изображения*.\n\n👉 Чтобы начать:\n🔍 Нажмите кнопку *Выбор группы*\nили введите название группы (например: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Создатель: @sqosimovv",
+        "btn_bugun": "📅 Сегодня",
+        "btn_guruh": "🔍 Выбор группы",
+        "btn_yordam": "ℹ️ Помощь",
+        "btn_lang": "🌐 Сменить язык",
+        "btn_notif": "🔔 Уведомления",
+        "btn_notif_on": "✅ Включить",
+        "btn_notif_off": "❌ Выключить",
+        "btn_back": "⬅️ Назад",
+        "notif_menu": "🔔 *Раздел уведомлений*\n\nСтатус: {}\n\nХотите получать расписание автоматически каждый день в 08:00?",
+        "notif_status_on": "Включено",
+        "notif_status_off": "Выключено",
+        "notif_enabled": "✅ Уведомления включены! Расписание будет отправляться каждый день в 08:00.",
+        "notif_disabled": "❌ Уведомления выключены.",
+        "select_group": "Введите название группы:\nНапример: `RST-88/25`",
+        "group_selected": "✅ *{}* выбрана!\n\n📅 Нажмите кнопку 'Сегодня'.",
+        "no_group": "❌ Сначала выберите группу!",
+        "group_not_found": "⚠️ {} не найдена. Введите правильно.",
+        "taking_screenshot": "📸 Получение изображения расписания...",
+        "error_screenshot": "❌ Изображение не получено\n\nОшибка: {}\n\n🔗 Посмотреть на сайте:",
+        "error_sending": "❌ Ошибка при отправке фото: {}",
+        "today_caption": "📅 *Расписание на сегодня*\n👥 *{}*\n📆 {}\n\n🔗 [Посмотреть на сайте]({})",
+        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `🔍 Выбор группы` — выберите свою группу\n2️⃣ Или напишите название группы (например: `RST-88/25`)\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n📸 Результат:\n— Расписание на сегодня будет отправлено в виде *изображения (скриншота)*\n\n⚠️ *Примечание:*\n— Если группа не выбрана заранее, расписание не появится\n— Пишите название группы правильно\n\n👨‍💻 *Контакты и предложения:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Пользуйтесь ботом эффективно!",
+        "days": ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+        "lang_selected": "✅ Выбран русский язык!",
+        "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
+    },
+    "en": {
+        "welcome": "🎓 *TSUE Timetable Bot*\n\nHello! 👋\n\n📌 Through this bot, you can see your *timetable as an image*.\n\n👉 To start:\n🔍 Press the *Select Group* button\nor type the group name (e.g., `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Creator: @sqosimovv",
+        "btn_bugun": "📅 Today",
+        "btn_guruh": "🔍 Select Group",
+        "btn_yordam": "ℹ️ Help",
+        "btn_lang": "🌐 Change Language",
+        "btn_notif": "🔔 Notifications",
+        "btn_notif_on": "✅ Turn ON",
+        "btn_notif_off": "❌ Turn OFF",
+        "btn_back": "⬅️ Back",
+        "notif_menu": "🔔 *Notifications Section*\n\nStatus: {}\n\nDo you want to receive your timetable automatically every day at 08:00?",
+        "notif_status_on": "Enabled",
+        "notif_status_off": "Disabled",
+        "notif_enabled": "✅ Notifications enabled! Timetable will be sent every day at 08:00.",
+        "notif_disabled": "❌ Notifications disabled.",
+        "select_group": "Type the group name:\nFor example: `RST-88/25`",
+        "group_selected": "✅ *{}* selected!\n\n📅 Press 'Today'.",
+        "no_group": "❌ Select a group first!",
+        "group_not_found": "⚠️ {} not found. Type correctly.",
+        "taking_screenshot": "📸 Taking timetable screenshot...",
+        "error_screenshot": "❌ Image failed\n\nError: {}\n\n🔗 View on site:",
+        "error_sending": "❌ Error sending photo: {}",
+        "today_caption": "📅 *Today's Timetable*\n👥 *{}*\n📆 {}\n\n🔗 [View on site]({})",
+        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ `🔍 Select Group` — select your group\n2️⃣ Or type the group name (e.g., `RST-88/25`)\n3️⃣ Press the `📅 Today` button\n\n📸 Result:\n— Today's classes will be sent as an *image (screenshot)*\n\n⚠️ *Note:*\n— If a group is not selected first, the schedule won't appear\n— Type the group name correctly\n\n👨‍💻 *Contact & suggestions:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Use the bot productively!",
+        "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "lang_selected": "✅ English language selected!",
+        "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
+    }
+}
 
 # GROUP_IDS lug'ati (Siz bergan versiya)
 GROUP_IDS = {
@@ -74,7 +162,7 @@ GROUP_IDS = {
     "BBA-30/25": "55",
     "BBA-31/25": "56",
     "BBA-38i/25": "99",
-    
+
     # 2-KURS (MENEJMENT)
     "2 KURS": "66",
     "MNP-51/24": "67",
@@ -114,7 +202,7 @@ GROUP_IDS = {
     "LG-21/24i": "104",
     "MO-21/24i": "100",
     "MO-22/24i": "101",
-    
+
     # 3-KURS (MENEJMENT)
     "3 KURS": "110",
     "MNP-25/23r": "111",
@@ -140,7 +228,7 @@ GROUP_IDS = {
     "LG-75/23": "131",
     "IH-75/23": "132",
     "IH-76/23": "133",
-    
+
     # 4-KURS (MENEJMENT)
     "4 KURS": "138",
     "MNP-01/22r": "139",
@@ -161,7 +249,7 @@ GROUP_IDS = {
     "IH-01/22r": "154",
     "IH-60/22i": "155",
     "MNP-67/22i": "156",
-    
+
     # IQTISODIYOT FAKULTETI
     "IQTISODIYOT FAKULTETI": "162",
     "1 KURS": "163",
@@ -195,7 +283,7 @@ GROUP_IDS = {
     "IRB-83/25": "191",
     "IRB-84/25": "192",
     "IRB-85/25": "193",
-    
+
     # IQTISODIYOT 2-KURS
     "2 KURS": "201",
     "I-01/24r": "202",
@@ -223,7 +311,7 @@ GROUP_IDS = {
     "I-05/24i": "224",
     "I-54/24i": "225",
     "I-55/24i": "226",
-    
+
     # IQTISODIYOT 3-KURS
     "3 KURS": "234",
     "I-24/23i": "235",
@@ -259,7 +347,7 @@ GROUP_IDS = {
     "TI-75/23": "265",
     "PTI-75/23": "266",
     "PTI-76/23i": "267",
-    
+
     # IQTISODIYOT 4-KURS
     "4 KURS": "270",
     "IRB-10/22r": "271",
@@ -287,7 +375,7 @@ GROUP_IDS = {
     "MI-62/22": "293",
     "PTI-61/22": "294",
     "PTI-62/22": "295",
-    
+
     # RAQAMLI IQTISODIYOT
     "RAQAMLI IQTISODIYOT": "304",
     "1 KURS": "305",
@@ -328,7 +416,7 @@ GROUP_IDS = {
     "IB-31/35": "340",
     "IB-32/34": "341",
     "RST-80 ing/30": "342",
-    
+
     # RAQAMLI IQTISODIYOT 2-KURS
     "2 KURS": "348",
     "AT-11/24r": "349",
@@ -353,7 +441,7 @@ GROUP_IDS = {
     "RST-53/24": "369",
     "RST-54/24": "370",
     "RST-50/24i": "372",
-    
+
     # RAQAMLI IQTISODIYOT 3-KURS
     "3 KURS": "378",
     "ATT-25/23r": "379",
@@ -379,7 +467,7 @@ GROUP_IDS = {
     "RST-76/23": "399",
     "RST-77/23": "400",
     "Tadbir RI 18.12.25": "401",
-    
+
     # RAQAMLI IQTISODIYOT 4-KURS
     "4 KURS": "404",
     "AT-01/22r": "405",
@@ -399,7 +487,7 @@ GROUP_IDS = {
     "RST-61/22": "419",
     "RST-62/22": "420",
     "RST-63/22": "421",
-    
+
     # TURIZM FAKULTETI
     "TURIZM FAKULTETI": "427",
     "1 KURS": "428",
@@ -443,7 +531,7 @@ GROUP_IDS = {
     "KD-87/25": "464",
     "KD-88/25": "465",
     "KD-89/25": "466",
-    
+
     # TURIZM 2-KURS
     "2 KURS": "472",
     "TU-11/24r": "473",
@@ -471,7 +559,7 @@ GROUP_IDS = {
     "KD-50/24i": "495",
     "KD-50K/24": "496",
     "KD-51k/24": "497",
-    
+
     # TURIZM 3-KURS
     "3 KURS": "503",
     "TL-25/23r": "504",
@@ -486,7 +574,7 @@ GROUP_IDS = {
     "MR-70/23i": "513",
     "MR-26k/23": "514",
     "MR-27k/23": "515",
-    
+
     # TURIZM 4-KURS
     "4 KURS": "516",
     "TL-01/22r": "517",
@@ -501,14 +589,14 @@ GROUP_IDS = {
     "MR-61/22": "526",
     "MRD-61/22": "527",
     "KD-61/22": "528",
-    
+
     # QO'SHMA TA'LIM LLS
     "QO'SHMA TA'LIM LLS": "529",
     "ISEF Fall 2025": "530",
     "LSE-F/G1": "531",
     "LSE-F/G2": "532",
     "МЭБ-25": "533",
-    
+
     # SOLIQ VA BUDJET HISOBI
     "SOLIQ VA BUDJET HISOBI": "534",
     "1 KURS": "535",
@@ -526,7 +614,7 @@ GROUP_IDS = {
     "ST-30/25": "548",
     "ST-31/25": "549",
     "ST-32/25": "550",
-    
+
     # SOLIQ 2-KURS
     "2 KURS": "557",
     "ST-01/24r": "558",
@@ -541,7 +629,7 @@ GROUP_IDS = {
     "ST-57/24": "567",
     "ST-50/24i": "568",
     "ST-51/24i": "569",
-    
+
     # SOLIQ 3-KURS
     "3 KURS": "575",
     "ST-70/23": "576",
@@ -566,7 +654,7 @@ GROUP_IDS = {
     "BNG'-71/23": "597",
     "BNG'-72/23": "598",
     "BNG'-73/23": "599",
-    
+
     # SOLIQ 4-KURS
     "4 KURS": "604",
     "ST-60/22": "605",
@@ -593,7 +681,7 @@ GROUP_IDS = {
     "BNG'-61/22": "626",
     "BNG'-63/22": "627",
     "BNG'-62/22i": "628",
-    
+
     # BUXGALTERIYA HISOBI
     "BUXGALTERIYA HISOBI": "632",
     "1 KURS": "633",
@@ -616,7 +704,7 @@ GROUP_IDS = {
     "BHA-34/25i": "652",
     "BHA-84/25i": "653",
     "BHA-85/25i": "654",
-    
+
     # BUXGALTERIYA 2-KURS
     "2 KURS": "659",
     "BHA-01/24r": "660",
@@ -638,7 +726,7 @@ GROUP_IDS = {
     "BHA-55/24i": "676",
     "BHA-56/24i": "677",
     "BHA-05/24i": "678",
-    
+
     # BUXGALTERIYA 3-KURS
     "3-KURS": "684",
     "BHA-70/23": "685",
@@ -664,7 +752,7 @@ GROUP_IDS = {
     "BT-70/23": "705",
     "BT-71/23": "706",
     "BT-72/23": "707",
-    
+
     # BUXGALTERIYA 4-KURS
     "4-KURS": "714",
     "BHA-60/22": "715",
@@ -686,7 +774,7 @@ GROUP_IDS = {
     "BT-60/22": "731",
     "BT-61/22": "732",
     "BT-62/22": "733",
-    
+
     # MOLIYA FAKULTETI
     "MOLIYA FAKULTETI": "738",
     "1-KURS": "739",
@@ -710,7 +798,7 @@ GROUP_IDS = {
     "MMT-32/25": "757",
     "MMT-33/25": "758",
     "MMT-34i/25": "759",
-    
+
     # MOLIYA 2-KURS
     "2-KURS": "764",
     "MMT-50/24": "765",
@@ -730,7 +818,7 @@ GROUP_IDS = {
     "MMT-02/24": "779",
     "MMT-03/24": "780",
     "MMT-04/24": "781",
-    
+
     # MOLIYA 3-KURS
     "3-KURS": "788",
     "MMT-70/23": "789",
@@ -755,7 +843,7 @@ GROUP_IDS = {
     "MMT-22/23": "808",
     "MXVKM-20/23": "809",
     "MMT-79h/23": "810",
-    
+
     # MOLIYA 4-KURS
     "4-KURS": "815",
     "MMT-60i/22": "816",
@@ -779,7 +867,7 @@ GROUP_IDS = {
     "MMT-11/22": "834",
     "MMT-12/22": "835",
     "MXVKM-10/22": "836",
-    
+
     # BANK ISHI FAKULTETI
     "BANK ISHI FAKULTETI": "843",
     "1-KURS": "844",
@@ -800,7 +888,7 @@ GROUP_IDS = {
     "BIA-80i/25": "859",
     "BIA-81i/25": "860",
     "BIA-31i/25": "861",
-    
+
     # BANK ISHI 2-KURS
     "2-KURS": "866",
     "BIA-50/24": "867",
@@ -819,7 +907,7 @@ GROUP_IDS = {
     "BIA-02/24r": "880",
     "BIA-03/24r": "881",
     "BIA-04/24r": "882",
-    
+
     # BANK ISHI 3-KURS
     "3-KURS": "889",
     "BIA-70/23": "890",
@@ -845,7 +933,7 @@ GROUP_IDS = {
     "BIA-22/23r": "910",
     "BIA-23/23r": "911",
     "ILXKM-20/23r": "912",
-    
+
     # BANK ISHI 4-KURS
     "4-KURS": "918",
     "BIA-60/22": "919",
@@ -868,7 +956,7 @@ GROUP_IDS = {
     "BIA-11/22r": "936",
     "BIA-12/22r": "937",
     "ILXKM-10/22r": "938",
-    
+
     # POLOTSKIY
     "POLOTSKIY": "942",
     "СФФФТ-30-Б-25-(26)": "943",
@@ -917,7 +1005,7 @@ GROUP_IDS = {
     "PO54": "996",
     "PO55": "997",
     "PO56": "998",
-    
+
     # MAGISTRATURA 1-KURS
     "MAGISTRATURA — 1-KURS": "1030",
     "IN-25": "1031",
@@ -965,7 +1053,7 @@ GROUP_IDS = {
     "MRT-25R": "1074",
     "T-25R": "1075",
     "XM-25R": "1076",
-    
+
     # MAGISTRATURA 2-KURS
     "MAGISTRATURA — 2-KURS": "1080",
     "IN-15": "1081",
@@ -1013,7 +1101,7 @@ GROUP_IDS = {
     "TIF-15R": "1124",
     "MRT-15R": "1125",
     "T-15R": "1126",
-    
+
     # KECHKI 1-KURS
     "KECHKI — 1-KURS": "1129",
     "KI-80/25": "1130",
@@ -1032,7 +1120,7 @@ GROUP_IDS = {
     "KBB-81/25": "1143",
     "KIRB-80/25": "1144",
     "KIRB-81/25": "1145",
-    
+
     # KECHKI 2-KURS
     "KECHKI — 2-KURS": "1148",
     "KI-51/24": "1149",
@@ -1050,7 +1138,7 @@ GROUP_IDS = {
     "KBB-52/24": "1161",
     "KIRB-51/24": "1162",
     "KIRB-52/24": "1163",
-    
+
     # KECHKI 3-KURS
     "KECHKI — 3-KURS": "1165",
     "KBIA-60/23": "1166",
@@ -1074,7 +1162,7 @@ GROUP_IDS = {
     "KI-63/23": "1184",
     "KM-60/23": "1185",
     "KM-61/23": "1186",
-    
+
     # KECHKI 4-KURS
     "KECHKI — 4-KURS": "1190",
     "KBIA-70/22": "1191",
@@ -1099,10 +1187,10 @@ GROUP_IDS = {
     "KMMT-20/22r*": "1210",
     "KBHA-20/22r*": "1211",
     "KI-20/22r*": "1212",
-    
+
     # MASOFAVIY TA`LIM
     "MASOFAVIY TA`LIM": "1215",
-    
+
     # MASOFAVIY 2-KURS
     "2-KURS": "1216",
     "MBHA-51/24": "1217",
@@ -1125,7 +1213,7 @@ GROUP_IDS = {
     "MMMT-11/24": "1234",
     "MBIA-11/24": "1235",
     "MMRT-11/24": "1236",
-    
+
     # MASOFAVIY 3-KURS
     "MASOFAVIY TALIM — 3-KURS": "1239",
     "MHBA-75/23": "1240",
@@ -1145,7 +1233,7 @@ GROUP_IDS = {
     "MMRT-25/23": "1254",
     "MIQT-25/23": "1255",
     "MIQT-26/23": "1256",
-    
+
     # MASOFAVIY 4-KURS
     "MASOFAVIY TALIM — 4-KURS": "1259",
     "MHBA-61/22": "1260",
@@ -1164,7 +1252,7 @@ GROUP_IDS = {
     "MMRT-01/22": "1273",
     "MIQT-01/22": "1274",
     "MIQT-02/22": "1275",
-    
+
     # MASOFAVIY 1-KURS
     "MASOFAVIY TALIM — 1-KURS": "1278",
     "MIQT-80/25": "1279",
@@ -1263,7 +1351,7 @@ GROUP_IDS = {
     "MMMT-31/25": "1381",
     "MBBA-83/25": "1382",
     "MBBA-84/25": "1383",
-    
+
     # 2 TA'LIM 2‑KURS
     "2 TA'LIM 2‑KURS": "1541",
     "I-80-2/25": "1542",
@@ -1337,10 +1425,10 @@ GROUP_IDS = {
     "MMT‑85‑2/25": "1616",
     "MMT‑86‑2/25": "1617",
     "MMT‑87‑2/25": "1618",
-    
+
     # RI fakul`teti
     "RI fakul`teti": "1655",
-    
+
     # 5-KURS SIRTQI
     "5-KURS SIRTQI": "1985",
     "MEK-41/21 rus": "1986",
@@ -1412,7 +1500,7 @@ GROUP_IDS = {
     "MTU-92/21": "2056",
     "MTU-93/21": "2057",
     "MTU-94/21": "2058",
-    
+
     # 2-KURS SIRTQI
     "2-KURS": "2060",
     "SI-01/24": "2061",
@@ -1489,10 +1577,33 @@ def take_timetable_screenshot(guruh):
 
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page = browser.new_page(viewport={"width": 1920, "height": 1080})
             page.goto(url, timeout=60000)
             page.wait_for_timeout(5000)
-            page.screenshot(path=file_path, full_page=True)
+
+            # Edupage jadval elementini topish (bir nechta variant)
+            selectors = [
+                '.section',  # Edupage asosiy jadval konteyner
+                '#main',
+                'div.main',
+                'div[class*="timetable"]',
+                '.timetableContent',
+                'table.main-table',
+                'table'  # Oxirgi variant
+            ]
+
+            timetable = None
+            for selector in selectors:
+                timetable = page.query_selector(selector)
+                if timetable:
+                    break
+
+            if timetable:
+                timetable.screenshot(path=file_path)
+            else:
+                # Agar jadval topilmasa, butun sahifani olish
+                page.screenshot(path=file_path, full_page=True)
+
             browser.close()
 
         return file_path, None
@@ -1502,30 +1613,116 @@ def take_timetable_screenshot(guruh):
 
 
 def start(update, context):
-    """Start"""
+    """Start with language selection"""
+    lang = context.user_data.get("lang")
+    if not lang:
+        return choose_language(update, context)
+
+    s = STRINGS[lang]
     keyboard = [
-        [KeyboardButton("📅 Bugun"), KeyboardButton("🔍 Guruh Tanlash")],
-        [KeyboardButton("ℹ️ Yordam")],
+        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
+        [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
+        [KeyboardButton(s["btn_yordam"])],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     update.message.reply_text(
-        "🎓 *TSUE Dars Jadvali Bot*\n\n"
-        "Assalomu alaykum! 👋\n\n"
-       "📌 Ushbu bot orqali siz\n"
-       "*dars jadvalingizni rasm ko‘rinishida* ko‘rishingiz mumkin.\n\n"
-       "👉 Boshlash uchun:\n"
-       "🔍 *Guruh Tanlash* tugmasini bosing\n"
-       "yoki guruh nomini yozing (masalan: `RST-88/25`).\n\n"
-       "━━━━━━━━━━━━━━━━━━\n"
-       "👨‍💻 Yaratuvchi: @sqosimovv",
-       parse_mode="Markdown",
-       reply_markup=reply_markup,
+        s["welcome"],
+        parse_mode="Markdown",
+        reply_markup=reply_markup,
     )
 
+def notif_menu_handler(update, context):
+    """Notification settings menu"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    is_enabled = context.user_data.get("notif_enabled", False)
+    status_text = s["notif_status_on"] if is_enabled else s["notif_status_off"]
+
+    keyboard = [
+        [KeyboardButton(s["btn_notif_on"]), KeyboardButton(s["btn_notif_off"])],
+        [KeyboardButton(s["btn_back"])]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    update.message.reply_text(
+        s["notif_menu"].format(status_text),
+        parse_mode="Markdown",
+        reply_markup=reply_markup
+    )
+
+def daily_notification_callback(context):
+    """Job callback to send daily schedules"""
+    job = context.job
+    chat_id = job.context['chat_id']
+    user_data = context.dispatcher.user_data.get(chat_id, {})
+
+    lang = user_data.get("lang", "uz")
+    guruh = user_data.get("guruh")
+    s = STRINGS[lang]
+
+    if not guruh:
+        return
+
+    filepath, error = take_timetable_screenshot(guruh)
+    if not error and filepath:
+        try:
+            kun = datetime.now().weekday()
+            # Skip Sunday
+            if kun == 6:
+                return
+
+            kun_nomi = s["days"][kun]
+            caption = s["today_caption"].format(guruh, kun_nomi, f"{BASE_URL}{GROUP_IDS[guruh]}")
+
+            with open(filepath, "rb") as photo:
+                context.bot.send_photo(chat_id=chat_id, photo=photo, caption=caption, parse_mode="Markdown")
+            os.remove(filepath)
+        except Exception:
+            pass
+
+def update_notification_job(chat_id, context, enable=True):
+    """Add or remove the notification job"""
+    job_name = f"daily_notif_{chat_id}"
+    current_jobs = context.job_queue.get_jobs_by_name(job_name)
+
+    for job in current_jobs:
+        job.schedule_removal()
+
+    if enable:
+        # Schedule daily at 08:00
+        from datetime import time as dt_time
+        target_time = dt_time(8, 0, 0)
+        context.job_queue.run_daily(
+            daily_notification_callback,
+            time=target_time,
+            days=(0, 1, 2, 3, 4, 5), # Mon-Sat
+            name=job_name,
+            context={"chat_id": chat_id}
+        )
+
+def choose_language(update, context):
+    """Language selection menu"""
+    keyboard = [
+        [
+            InlineKeyboardButton("🇺🇿 O'zbekcha", callback_data="lang_uz"),
+            InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru"),
+            InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    msg_text = STRINGS["uz"]["choose_lang"]
+
+    if update.callback_query:
+        update.callback_query.message.reply_text(msg_text, reply_markup=reply_markup)
+    else:
+        update.message.reply_text(msg_text, reply_markup=reply_markup)
 
 def guruh_tanlash(update, context):
     """Guruhlar"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
     keyboard = []
 
     # Mashhur guruhlar
@@ -1535,7 +1732,7 @@ def guruh_tanlash(update, context):
         if g in GROUP_IDS:
             keyboard.append([
                 InlineKeyboardButton(
-                    f"{g} (ID: {GROUP_IDS[g]})",
+                    f"{g}",
                     callback_data=f"g_{g}"
                 )
             ])
@@ -1543,8 +1740,7 @@ def guruh_tanlash(update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     update.message.reply_text(
-        "Guruh nomini yozing:\n"
-        "Masalan: `RST-88/25`",
+        s["select_group"],
         reply_markup=reply_markup,
         parse_mode="Markdown",
     )
@@ -1555,58 +1751,72 @@ def callback_handler(update, context):
     query = update.callback_query
     query.answer()
 
-    if query.data.startswith("g_"):
-        guruh = query.data[2:]
+    data = query.data
+
+    if data.startswith("lang_"):
+        lang = data.split("_")[1]
+        context.user_data["lang"] = lang
+        s = STRINGS[lang]
+
+        query.edit_message_text(s["lang_selected"])
+
+        # Show main menu
+        keyboard = [
+            [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
+            [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
+        ]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=s["welcome"],
+            parse_mode="Markdown",
+            reply_markup=reply_markup
+        )
+
+    elif data.startswith("g_"):
+        guruh = data[2:]
+        lang = context.user_data.get("lang", "uz")
+        s = STRINGS[lang]
         context.user_data["guruh"] = guruh
         query.edit_message_text(
-            f"✅ *{guruh}* tanlandi!\n\n" f"📅 'Bugun' tugmasini bosing.",
+            s["group_selected"].format(guruh),
             parse_mode="Markdown",
         )
 
 
 def bugun_handler(update, context):
     """Bugungi darslar - RASM bilan"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
     guruh = context.user_data.get("guruh")
 
     if not guruh:
-        update.message.reply_text("❌ Avval guruh tanlang!")
+        update.message.reply_text(s["no_group"])
         return
 
     if guruh not in GROUP_IDS:
-        update.message.reply_text(f"⚠️ {guruh} topilmadi. To‘g‘ri yozing.")
+        update.message.reply_text(s["group_not_found"].format(guruh))
         return
 
-    msg = update.message.reply_text("📸 Jadval rasmi olinmoqda...")
+    msg = update.message.reply_text(s["taking_screenshot"])
 
-    # Screenshot olish (oddiy, sync)
+    # Screenshot olish
     filepath, error = take_timetable_screenshot(guruh)
 
     if error or not filepath:
         msg.edit_text(
-            "❌ Rasm olinmadi\n\n"
-            f"Xatolik: {error}\n\n"
-            "🔗 Saytda ko‘ring:\n"
-            f"{BASE_URL}{GROUP_IDS[guruh]}"
+            s["error_screenshot"].format(error) + f"\n{BASE_URL}{GROUP_IDS[guruh]}"
         )
         return
 
     try:
         kun = datetime.now().weekday()
-        kunlar = [
-            "Dushanba",
-            "Seshanba",
-            "Chorshanba",
-            "Payshanba",
-            "Juma",
-            "Shanba",
-            "Yakshanba",
-        ]
+        kun_nomi = s["days"][kun]
 
-        caption = (
-            "📅 *Bugungi jadval*\n"
-            f"👥 *{guruh}*\n"
-            f"📆 {kunlar[kun]}\n\n"
-            f"🔗 [Saytda ko‘rish]({BASE_URL}{GROUP_IDS[guruh]})"
+        caption = s["today_caption"].format(
+            guruh,
+            kun_nomi,
+            f"{BASE_URL}{GROUP_IDS[guruh]}"
         )
 
         with open(filepath, "rb") as photo:
@@ -1624,37 +1834,57 @@ def bugun_handler(update, context):
             pass
 
     except Exception as e:
-        msg.edit_text(f"❌ Rasm yuborishda xatolik: {e}")
+        msg.edit_text(s["error_sending"].format(e))
 
 
 def message_handler(update, context):
     """Messages"""
     text = update.message.text
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
 
-    if text == "📅 Bugun":
+    # Check buttons in all languages to be safe
+    all_bugun = [STRINGS[l]["btn_bugun"] for l in STRINGS]
+    all_guruh = [STRINGS[l]["btn_guruh"] for l in STRINGS]
+    all_yordam = [STRINGS[l]["btn_yordam"] for l in STRINGS]
+    all_lang = [STRINGS[l]["btn_lang"] for l in STRINGS]
+    all_notif = [STRINGS[l]["btn_notif"] for l in STRINGS]
+    all_notif_on = [STRINGS[l]["btn_notif_on"] for l in STRINGS]
+    all_notif_off = [STRINGS[l]["btn_notif_off"] for l in STRINGS]
+    all_back = [STRINGS[l]["btn_back"] for l in STRINGS]
+
+    if text in all_bugun:
         bugun_handler(update, context)
 
-    elif text == "ℹ️ Yordam":
+    elif text in all_guruh:
+        guruh_tanlash(update, context)
+
+    elif text in all_notif:
+        notif_menu_handler(update, context)
+
+    elif text in all_notif_on:
+        context.user_data["notif_enabled"] = True
+        update_notification_job(update.message.chat_id, context, enable=True)
+        update.message.reply_text(s["notif_enabled"])
+        start(update, context)
+
+    elif text in all_notif_off:
+        context.user_data["notif_enabled"] = False
+        update_notification_job(update.message.chat_id, context, enable=False)
+        update.message.reply_text(s["notif_disabled"])
+        start(update, context)
+
+    elif text in all_back:
+        start(update, context)
+
+    elif text in all_yordam:
         update.message.reply_text(
-            "🆘 *YORDAM BO‘LIMI*\n"
-            "━━━━━━━━━━━━━━━━━━\n\n"
-            "🎓 *Bu bot nima qiladi?*\n"
-            "— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n"
-            "📌 *Qanday foydalaniladi?*\n"
-            "1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n"
-            "2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n"
-            "3️⃣ `📅 Bugun` tugmasini bosing\n\n"
-            "📸 Natija:\n"
-            "— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n"
-            "⚠️ *Eslatma:*\n"
-            "— Avval guruh tanlanmasa, jadval chiqmaydi\n"
-            "— Guruh nomini to‘g‘ri yozing\n\n"
-            "👨‍💻 *Aloqa & takliflar:*\n"
-            "👉 @sqosimovv\n\n"
-            "━━━━━━━━━━━━━━━━━━\n"
-            "✨ Botdan unumli foydalaning!",
+            s["help_text"],
             parse_mode="Markdown",
         )
+
+    elif text in all_lang:
+        choose_language(update, context)
 
     else:
         # Guruh nomini tekshirish
@@ -1664,20 +1894,75 @@ def message_handler(update, context):
             if g.upper() == user_text:
                 context.user_data["guruh"] = g
                 update.message.reply_text(
-                    f"✅ *{g}* guruhi tanlandi!\n\n"
-                    "📅 Endi *Bugun* tugmasini bosing\n"
-                    "va dars jadvalingizni ko‘ring 👇",
+                    s["group_selected"].format(g),
                     parse_mode="Markdown",
                 )
                 return
 
+        # Default welcome message if not a group
         update.message.reply_text(
-            "👋 Assalomu alaykum!\n\n"
-            "📌 Dars jadvalini ko‘rish uchun avval *guruhingizni tanlang*.\n\n"
-            "✍️ Guruh nomini yozishingiz mumkin:\n"
-            "`RST-88/25`",
+            s["welcome"],
             parse_mode="Markdown",
         )
+
+
+def stats(update, context):
+    """Bot statistics for Admin"""
+    user = update.effective_user
+    if user.username != ADMIN_USERNAME:
+        return
+
+    # Count entries in dispatcher.user_data
+    total_users = len(context.dispatcher.user_data)
+    
+    # Count how many have notifications active
+    notif_users = 0
+    for u_id in context.dispatcher.user_data:
+        if context.dispatcher.user_data[u_id].get("notif_enabled", False):
+            notif_users += 1
+
+    msg = (
+        "📊 *Bot statistikasi:*\n\n"
+        f"👥 Umumiy foydalanuvchilar: `{total_users}`\n"
+        f"🔔 Eslatma yoqqanlar: `{notif_users}`"
+    )
+    update.message.reply_text(msg, parse_mode="Markdown")
+
+
+def broadcast(update, context):
+    """Send message to all users - Admin only"""
+    user = update.effective_user
+    if user.username != ADMIN_USERNAME:
+        return
+
+    # Get the message after /send
+    text = update.message.text.replace("/send", "").strip()
+    
+    if not text:
+        update.message.reply_text("❌ Xabar yozilmagan. Masalan: `/send Salom talabalar!`", parse_mode="Markdown")
+        return
+
+    msg = update.message.reply_text(f"🚀 Xabar yuborish boshlandi...")
+    
+    chat_ids = context.dispatcher.user_data.keys()
+    success = 0
+    failed = 0
+    
+    for chat_id in chat_ids:
+        try:
+            context.bot.send_message(chat_id=chat_id, text=text, parse_mode="Markdown")
+            success += 1
+            # Add small delay to avoid flood
+            time.sleep(0.05)
+        except Exception:
+            failed += 1
+            
+    msg.edit_text(
+        f"✅ Yuborish yakunlandi!\n\n"
+        f"➕ Muvaffaqiyatli: `{success}`\n"
+        f"➖ Muvaffaqiyatsiz: `{failed}`",
+        parse_mode="Markdown"
+    )
 
 
 
@@ -1688,18 +1973,45 @@ def main():
     print("📸 Screenshot rejimi")
     print("============================================================")
 
-    updater = Updater(BOT_TOKEN, use_context=True)
+    from telegram.ext import PicklePersistence
+    persistence = PicklePersistence(filename='bot_data.pickle')
+
+    updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
     dp = updater.dispatcher
 
+    # Restart jobs for users who have them enabled
+    job_queue = updater.job_queue
+    def restore_jobs(dispatcher):
+        chat_ids = dispatcher.user_data.keys()
+        for chat_id in chat_ids:
+            u_data = dispatcher.user_data.get(chat_id, {})
+            if u_data.get("notif_enabled", False):
+                # Manual job reconstruction since objects aren't persisted well
+                job_name = f"daily_notif_{chat_id}"
+                from datetime import time as dt_time
+                target_time = dt_time(8, 0, 0)
+                job_queue.run_daily(
+                    daily_notification_callback,
+                    time=target_time,
+                    days=(0, 1, 2, 3, 4, 5),
+                    name=job_name,
+                    context={"chat_id": chat_id}
+                )
+
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("stats", stats))
+    dp.add_handler(CommandHandler("send", broadcast))
     dp.add_handler(CommandHandler("guruh", guruh_tanlash))
     dp.add_handler(CallbackQueryHandler(callback_handler))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
 
     print("✅ Ishga tushdi!")
+
+    # Restore jobs after start
+    restore_jobs(dp)
+
     updater.start_polling()
     updater.idle()
 
 
 if __name__ == "__main__":
-    main()
