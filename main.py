@@ -8,6 +8,66 @@ import os
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
+STRINGS = {
+    "uz": {
+        "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Ushbu bot orqali siz *dars jadvalingizni rasm ko‘rinishida* ko‘rishingiz mumkin.\n\n👉 Boshlash uchun:\n🔍 *Guruh Tanlash* tugmasini bosing\nyoki guruh nomini yozing (masalan: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Yaratuvchi: @sqosimovv",
+        "btn_bugun": "📅 Bugun",
+        "btn_guruh": "🔍 Guruh Tanlash",
+        "btn_yordam": "ℹ️ Yordam",
+        "btn_lang": "🌐 Tilni o'zgartirish",
+        "select_group": "Guruh nomini yozing:\nMasalan: `RST-88/25`",
+        "group_selected": "✅ *{}* tanlandi!\n\n📅 'Bugun' tugmasini bosing.",
+        "no_group": "❌ Avval guruh tanlang!",
+        "group_not_found": "⚠️ {} topilmadi. To‘g‘ri yozing.",
+        "taking_screenshot": "📸 Jadval rasmi olinmoqda...",
+        "error_screenshot": "❌ Rasm olinmadi\n\nXatolik: {}\n\n🔗 Saytda ko‘ring:",
+        "error_sending": "❌ Rasm yuborishda xatolik: {}",
+        "today_caption": "📅 *Bugungi jadval*\n👥 *{}*\n📆 {}\n\n🔗 [Saytda ko‘rish]({})",
+        "help_text": "🆘 *YORDAM BO‘LIMI*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Bu bot nima qiladi?*\n— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n📌 *Qanday foydalaniladi?*\n1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n3️⃣ `📅 Bugun` tugmasini bosing\n\n📸 Natija:\n— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n⚠️ *Eslatma:*\n— Avval guruh tanlanmasa, jadval chiqmaydi\n— Guruh nomini to‘g‘ri yozing\n\n👨‍💻 *Aloqa & takliflar:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Botdan unumli foydalaning!",
+        "days": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba", "Yakshanba"],
+        "lang_selected": "✅ O'zbek tili tanlandi!",
+        "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
+    },
+    "ru": {
+        "welcome": "🎓 *Бот Расписания ТГЭУ*\n\nЗдравствуйте! 👋\n\n📌 С помощью этого бота вы можете увидеть свое *расписание в виде изображения*.\n\n👉 Чтобы начать:\n🔍 Нажмите кнопку *Выбор группы*\nили введите название группы (например: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Создатель: @sqosimovv",
+        "btn_bugun": "📅 Сегодня",
+        "btn_guruh": "🔍 Выбор группы",
+        "btn_yordam": "ℹ️ Помощь",
+        "btn_lang": "🌐 Сменить язык",
+        "select_group": "Введите название группы:\nНапример: `RST-88/25`",
+        "group_selected": "✅ *{}* выбрана!\n\n📅 Нажмите кнопку 'Сегодня'.",
+        "no_group": "❌ Сначала выберите группу!",
+        "group_not_found": "⚠️ {} не найдена. Введите правильно.",
+        "taking_screenshot": "📸 Получение изображения расписания...",
+        "error_screenshot": "❌ Изображение не получено\n\nОшибка: {}\n\n🔗 Посмотреть на сайте:",
+        "error_sending": "❌ Ошибка при отправке фото: {}",
+        "today_caption": "📅 *Расписание на сегодня*\n👥 *{}*\n📆 {}\n\n🔗 [Посмотреть на сайте]({})",
+        "help_text": "🆘 *РАЗДЕЛ ПОМОЩИ*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *Что делает этот бот?*\n— Выдает *расписание занятий в виде изображения* для студентов ТГЭУ.\n\n📌 *Как пользоваться?*\n1️⃣ `🔍 Выбор группы` — выберите свою группу\n2️⃣ Или напишите название группы (например: `RST-88/25`)\n3️⃣ Нажмите кнопку `📅 Сегодня` \n\n📸 Результат:\n— Расписание на сегодня будет отправлено в виде *изображения (скриншота)*\n\n⚠️ *Примечание:*\n— Если группа не выбрана заранее, расписание не появится\n— Пишите название группы правильно\n\n👨‍💻 *Контакты и предложения:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Пользуйтесь ботом эффективно!",
+        "days": ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+        "lang_selected": "✅ Выбран русский язык!",
+        "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
+    },
+    "en": {
+        "welcome": "🎓 *TSUE Timetable Bot*\n\nHello! 👋\n\n📌 Through this bot, you can see your *timetable as an image*.\n\n👉 To start:\n🔍 Press the *Select Group* button\nor type the group name (e.g., `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Creator: @sqosimovv",
+        "btn_bugun": "📅 Today",
+        "btn_guruh": "🔍 Select Group",
+        "btn_yordam": "ℹ️ Help",
+        "btn_lang": "🌐 Change Language",
+        "select_group": "Type the group name:\nFor example: `RST-88/25`",
+        "group_selected": "✅ *{}* selected!\n\n📅 Press 'Today'.",
+        "no_group": "❌ Select a group first!",
+        "group_not_found": "⚠️ {} not found. Type correctly.",
+        "taking_screenshot": "📸 Taking timetable screenshot...",
+        "error_screenshot": "❌ Image failed\n\nError: {}\n\n🔗 View on site:",
+        "error_sending": "❌ Error sending photo: {}",
+        "today_caption": "📅 *Today's Timetable*\n👥 *{}*\n📆 {}\n\n🔗 [View on site]({})",
+        "help_text": "🆘 *HELP SECTION*\n━━━━━━━━━━━━━━━━━━\n\n🎓 *What does this bot do?*\n— Provides the *class schedule as an image* for TSUE students.\n\n📌 *How to use?*\n1️⃣ `🔍 Select Group` — select your group\n2️⃣ Or type the group name (e.g., `RST-88/25`)\n3️⃣ Press the `📅 Today` button\n\n📸 Result:\n— Today's classes will be sent as an *image (screenshot)*\n\n⚠️ *Note:*\n— If a group is not selected first, the schedule won't appear\n— Type the group name correctly\n\n👨‍💻 *Contact & suggestions:*\n👉 @sqosimovv\n\n━━━━━━━━━━━━━━━━━━\n✨ Use the bot productively!",
+        "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "lang_selected": "✅ English language selected!",
+        "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
+    }
+}
+
 # GROUP_IDS lug'ati (Siz bergan versiya)
 GROUP_IDS = {
     # MENEJMENT FAKULTETI
@@ -1525,30 +1585,46 @@ def take_timetable_screenshot(guruh):
 
 
 def start(update, context):
-    """Start"""
+    """Start with language selection"""
+    lang = context.user_data.get("lang")
+    if not lang:
+        return choose_language(update, context)
+        
+    s = STRINGS[lang]
     keyboard = [
-        [KeyboardButton("📅 Bugun"), KeyboardButton("🔍 Guruh Tanlash")],
-        [KeyboardButton("ℹ️ Yordam")],
+        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
+        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     update.message.reply_text(
-        "🎓 *TSUE Dars Jadvali Bot*\n\n"
-        "Assalomu alaykum! 👋\n\n"
-       "📌 Ushbu bot orqali siz\n"
-       "*dars jadvalingizni rasm ko‘rinishida* ko‘rishingiz mumkin.\n\n"
-       "👉 Boshlash uchun:\n"
-       "🔍 *Guruh Tanlash* tugmasini bosing\n"
-       "yoki guruh nomini yozing (masalan: `RST-88/25`).\n\n"
-       "━━━━━━━━━━━━━━━━━━\n"
-       "👨‍💻 Yaratuvchi: @sqosimovv",
-       parse_mode="Markdown",
-       reply_markup=reply_markup,
+        s["welcome"],
+        parse_mode="Markdown",
+        reply_markup=reply_markup,
     )
 
+def choose_language(update, context):
+    """Language selection menu"""
+    keyboard = [
+        [
+            InlineKeyboardButton("🇺🇿 O'zbekcha", callback_data="lang_uz"),
+            InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru"),
+            InlineKeyboardButton("🇺🇸 English", callback_data="lang_en")
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    msg_text = STRINGS["uz"]["choose_lang"]
+    
+    if update.callback_query:
+        update.callback_query.message.reply_text(msg_text, reply_markup=reply_markup)
+    else:
+        update.message.reply_text(msg_text, reply_markup=reply_markup)
 
 def guruh_tanlash(update, context):
     """Guruhlar"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
     keyboard = []
 
     # Mashhur guruhlar
@@ -1558,7 +1634,7 @@ def guruh_tanlash(update, context):
         if g in GROUP_IDS:
             keyboard.append([
                 InlineKeyboardButton(
-                    f"{g} (ID: {GROUP_IDS[g]})",
+                    f"{g}",
                     callback_data=f"g_{g}"
                 )
             ])
@@ -1566,8 +1642,7 @@ def guruh_tanlash(update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     update.message.reply_text(
-        "Guruh nomini yozing:\n"
-        "Masalan: `RST-88/25`",
+        s["select_group"],
         reply_markup=reply_markup,
         parse_mode="Markdown",
     )
@@ -1577,59 +1652,73 @@ def callback_handler(update, context):
     """Callback"""
     query = update.callback_query
     query.answer()
+    
+    data = query.data
 
-    if query.data.startswith("g_"):
-        guruh = query.data[2:]
+    if data.startswith("lang_"):
+        lang = data.split("_")[1]
+        context.user_data["lang"] = lang
+        s = STRINGS[lang]
+        
+        query.edit_message_text(s["lang_selected"])
+        
+        # Show main menu
+        keyboard = [
+            [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
+            [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
+        ]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=s["welcome"],
+            parse_mode="Markdown",
+            reply_markup=reply_markup
+        )
+
+    elif data.startswith("g_"):
+        guruh = data[2:]
+        lang = context.user_data.get("lang", "uz")
+        s = STRINGS[lang]
         context.user_data["guruh"] = guruh
         query.edit_message_text(
-            f"✅ *{guruh}* tanlandi!\n\n" f"📅 'Bugun' tugmasini bosing.",
+            s["group_selected"].format(guruh),
             parse_mode="Markdown",
         )
 
 
 def bugun_handler(update, context):
     """Bugungi darslar - RASM bilan"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
     guruh = context.user_data.get("guruh")
 
     if not guruh:
-        update.message.reply_text("❌ Avval guruh tanlang!")
+        update.message.reply_text(s["no_group"])
         return
 
     if guruh not in GROUP_IDS:
-        update.message.reply_text(f"⚠️ {guruh} topilmadi. To‘g‘ri yozing.")
+        update.message.reply_text(s["group_not_found"].format(guruh))
         return
 
-    msg = update.message.reply_text("📸 Jadval rasmi olinmoqda...")
+    msg = update.message.reply_text(s["taking_screenshot"])
 
-    # Screenshot olish (oddiy, sync)
+    # Screenshot olish
     filepath, error = take_timetable_screenshot(guruh)
 
     if error or not filepath:
         msg.edit_text(
-            "❌ Rasm olinmadi\n\n"
-            f"Xatolik: {error}\n\n"
-            "🔗 Saytda ko‘ring:\n"
-            f"{BASE_URL}{GROUP_IDS[guruh]}"
+            s["error_screenshot"].format(error) + f"\n{BASE_URL}{GROUP_IDS[guruh]}"
         )
         return
 
     try:
         kun = datetime.now().weekday()
-        kunlar = [
-            "Dushanba",
-            "Seshanba",
-            "Chorshanba",
-            "Payshanba",
-            "Juma",
-            "Shanba",
-            "Yakshanba",
-        ]
+        kun_nomi = s["days"][kun]
 
-        caption = (
-            "📅 *Bugungi jadval*\n"
-            f"👥 *{guruh}*\n"
-            f"📆 {kunlar[kun]}\n\n"
-            f"🔗 [Saytda ko‘rish]({BASE_URL}{GROUP_IDS[guruh]})"
+        caption = s["today_caption"].format(
+            guruh,
+            kun_nomi,
+            f"{BASE_URL}{GROUP_IDS[guruh]}"
         )
 
         with open(filepath, "rb") as photo:
@@ -1647,37 +1736,35 @@ def bugun_handler(update, context):
             pass
 
     except Exception as e:
-        msg.edit_text(f"❌ Rasm yuborishda xatolik: {e}")
+        msg.edit_text(s["error_sending"].format(e))
 
 
 def message_handler(update, context):
     """Messages"""
     text = update.message.text
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
 
-    if text == "📅 Bugun":
+    # Check buttons in all languages to be safe
+    all_bugun = [STRINGS[l]["btn_bugun"] for l in STRINGS]
+    all_guruh = [STRINGS[l]["btn_guruh"] for l in STRINGS]
+    all_yordam = [STRINGS[l]["btn_yordam"] for l in STRINGS]
+    all_lang = [STRINGS[l]["btn_lang"] for l in STRINGS]
+
+    if text in all_bugun:
         bugun_handler(update, context)
+        
+    elif text in all_guruh:
+        guruh_tanlash(update, context)
 
-    elif text == "ℹ️ Yordam":
+    elif text in all_yordam:
         update.message.reply_text(
-            "🆘 *YORDAM BO‘LIMI*\n"
-            "━━━━━━━━━━━━━━━━━━\n\n"
-            "🎓 *Bu bot nima qiladi?*\n"
-            "— TSUE talabalari uchun *dars jadvalini rasm ko‘rinishida* chiqarib beradi.\n\n"
-            "📌 *Qanday foydalaniladi?*\n"
-            "1️⃣ `🔍 Guruh Tanlash` — guruhingizni tanlang\n"
-            "2️⃣ Yoki guruh nomini yozing (masalan: `RST-88/25`)\n"
-            "3️⃣ `📅 Bugun` tugmasini bosing\n\n"
-            "📸 Natija:\n"
-            "— Bugungi darslar *rasm (screenshot)* ko‘rinishida yuboriladi\n\n"
-            "⚠️ *Eslatma:*\n"
-            "— Avval guruh tanlanmasa, jadval chiqmaydi\n"
-            "— Guruh nomini to‘g‘ri yozing\n\n"
-            "👨‍💻 *Aloqa & takliflar:*\n"
-            "👉 @sqosimovv\n\n"
-            "━━━━━━━━━━━━━━━━━━\n"
-            "✨ Botdan unumli foydalaning!",
+            s["help_text"],
             parse_mode="Markdown",
         )
+        
+    elif text in all_lang:
+        choose_language(update, context)
 
     else:
         # Guruh nomini tekshirish
@@ -1687,18 +1774,14 @@ def message_handler(update, context):
             if g.upper() == user_text:
                 context.user_data["guruh"] = g
                 update.message.reply_text(
-                    f"✅ *{g}* guruhi tanlandi!\n\n"
-                    "📅 Endi *Bugun* tugmasini bosing\n"
-                    "va dars jadvalingizni ko‘ring 👇",
+                    s["group_selected"].format(g),
                     parse_mode="Markdown",
                 )
                 return
 
+        # Default welcome message if not a group
         update.message.reply_text(
-            "👋 Assalomu alaykum!\n\n"
-            "📌 Dars jadvalini ko‘rish uchun avval *guruhingizni tanlang*.\n\n"
-            "✍️ Guruh nomini yozishingiz mumkin:\n"
-            "`RST-88/25`",
+            s["welcome"],
             parse_mode="Markdown",
         )
 
