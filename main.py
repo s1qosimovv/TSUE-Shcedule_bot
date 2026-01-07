@@ -1489,10 +1489,19 @@ def take_timetable_screenshot(guruh):
 
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            page = browser.new_page(viewport={"width": 1280, "height": 900})
+            page = browser.new_page(viewport={"width": 1920, "height": 1080})
             page.goto(url, timeout=60000)
             page.wait_for_timeout(5000)
-            page.screenshot(path=file_path, full_page=True)
+            
+            # Faqat jadval elementini topish va screenshot qilish
+            timetable = page.query_selector('table.main-table, table[class*="timetable"], .timetable-container table, table')
+            
+            if timetable:
+                timetable.screenshot(path=file_path)
+            else:
+                # Agar jadval topilmasa, butun sahifani olish
+                page.screenshot(path=file_path, full_page=True)
+            
             browser.close()
 
         return file_path, None
