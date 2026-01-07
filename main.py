@@ -10,7 +10,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
-print("🚀 Bot v2.0-Fixed is starting...")
+print("🚀 Bot v2.1-Docker is starting...")
 
 STRINGS = {
     "uz": {
