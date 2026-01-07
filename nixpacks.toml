@@ -8,4 +8,4 @@ nixPkgs = ["...", "chromium"]
 cmds = ["pip install -r requirements.txt", "playwright install chromium", "playwright install-deps chromium"]
 
 [start]
-cmd = "python bot.py"
+cmd = "python main.py"

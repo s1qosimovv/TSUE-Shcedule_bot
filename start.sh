@@ -7,4 +7,4 @@ playwright install chromium
 playwright install-deps chromium
 
 # Run the bot
-python bot.py
+python main.py
