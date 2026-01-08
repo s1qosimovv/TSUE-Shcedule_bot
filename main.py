@@ -1763,7 +1763,8 @@ def callback_handler(update, context):
         # Show main menu
         keyboard = [
             [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
-            [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_lang"])],
+            [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
+            [KeyboardButton(s["btn_yordam"])],
         ]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         context.bot.send_message(
