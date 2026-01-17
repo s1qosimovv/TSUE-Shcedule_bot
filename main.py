@@ -2054,7 +2054,9 @@ def stats(update, context):
 def broadcast(update, context):
     """Send message to all users - Admin only"""
     user = update.effective_user
+    print(f"DEBUG: Broadcast attempt by @{user.username}")
     if user.username != ADMIN_USERNAME:
+        print(f"DEBUG: Broadcast rejected. {user.username} != {ADMIN_USERNAME}")
         return
 
     # Get the message after /send
@@ -2067,6 +2069,7 @@ def broadcast(update, context):
     msg = update.message.reply_text(f"🚀 Xabar yuborish boshlandi...")
     
     chat_ids = context.dispatcher.user_data.keys()
+    print(f"DEBUG: Found {len(chat_ids)} users in user_data")
     success = 0
     failed = 0
     
@@ -2114,9 +2117,8 @@ def main():
     print("� HEMIS integratsiyasi")
     print("============================================================")
 
-    # persistence = PicklePersistence(filename='bot_data.pickle')
-    # updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
-    updater = Updater(BOT_TOKEN, use_context=True)
+    persistence = PicklePersistence(filename='bot_data.pickle')
+    updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
     dp = updater.dispatcher
 
     # Restart jobs for users who have them enabled
