@@ -1,17 +1,43 @@
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, InputFile
-from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters
+from telegram.ext import (
+    Updater, CommandHandler, MessageHandler, CallbackQueryHandler, 
+    Filters, ConversationHandler, PicklePersistence
+)
 from datetime import datetime
 import time
 import asyncio
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+# HEMIS imports
+from hemis_handlers import (
+    hemis_main_menu, hemis_login_start, hemis_login_username, 
+    hemis_login_password, hemis_info, hemis_subjects, hemis_grades,
+    hemis_schedule, hemis_payment, hemis_logout,
+    LOGIN_USERNAME, LOGIN_PASSWORD
+)
+
+
+
 ADMIN_USERNAME = "sqosimovv"
 BASE_URL = "https://tsue.edupage.org/timetable/view.php?num=90&class=*"
 
+
+
+
+
 STRINGS = {
     "uz": {
-        "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Ushbu bot orqali siz *dars jadvalingizni rasm ko‘rinishida* ko‘rishingiz mumkin.\n\n👉 Boshlash uchun:\n🔍 *Guruh Tanlash* tugmasini bosing\nyoki guruh nomini yozing (masalan: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Yaratuvchi: @sqosimovv",
+        "welcome": "🎓 *TSUE Dars Jadvali Bot*\n\nAssalomu alaykum! 👋\n\n📌 Iltimos, bo'limni tanlang:",
+        "btn_timetable": "� Dars Jadvali",
+        "btn_hemis": "🎓 HEMIS Tizimi",
         "btn_bugun": "📅 Bugun",
         "btn_guruh": "🔍 Guruh Tanlash",
         "btn_yordam": "ℹ️ Yordam",
@@ -20,6 +46,8 @@ STRINGS = {
         "btn_notif_on": "✅ Yoqish",
         "btn_notif_off": "❌ O'chirish",
         "btn_back": "⬅️ Orqaga",
+        "main_menu_text": "🗂 Asosiy menyu:",
+        "timetable_menu_text": "📅 Dars Jadvali bo'limi:",
         "notif_menu": "🔔 *Eslatmalar bo'limi*\n\nHolat: {}\n\n✨Har kuni soat 08:00 da dars jadvalingizni avtomatik olishni xohlaysizmi?",
         "notif_status_on": "🟢Yoqilgan",
         "notif_status_off": "🔴O'chirilgan",
@@ -39,7 +67,9 @@ STRINGS = {
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
     },
     "ru": {
-        "welcome": "🎓 *Бот Расписания ТГЭУ*\n\nЗдравствуйте! 👋\n\n📌 С помощью этого бота вы можете увидеть свое *расписание в виде изображения*.\n\n👉 Чтобы начать:\n🔍 Нажмите кнопку *Выбор группы*\nили введите название группы (например: `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Создатель: @sqosimovv",
+        "welcome": "🎓 *Бот Расписания ТГЭУ*\n\nЗдравствуйте! 👋\n\n📌 Пожалуйста, выберите раздел:",
+        "btn_timetable": "📅 Расписание",
+        "btn_hemis": "🎓 Система HEMIS",
         "btn_bugun": "📅 Сегодня",
         "btn_guruh": "🔍 Выбор группы",
         "btn_yordam": "ℹ️ Помощь",
@@ -48,6 +78,8 @@ STRINGS = {
         "btn_notif_on": "✅ Включить",
         "btn_notif_off": "❌ Выключить",
         "btn_back": "⬅️ Назад",
+        "main_menu_text": "🗂 Главное меню:",
+        "timetable_menu_text": "📅 Раздел расписания:",
         "notif_menu": "🔔 *Раздел уведомлений*\n\nСтатус: {}\n\n✨Хотите получать расписание автоматически каждый день в 08:00?",
         "notif_status_on": "🟢Включено",
         "notif_status_off": "🔴Выключено",
@@ -67,7 +99,9 @@ STRINGS = {
         "choose_lang": "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык / 🇺🇸 Choose language:"
     },
     "en": {
-        "welcome": "🎓 *TSUE Timetable Bot*\n\nHello! 👋\n\n📌 Through this bot, you can see your *timetable as an image*.\n\n👉 To start:\n🔍 Press the *Select Group* button\nor type the group name (e.g., `RST-88/25`).\n\n━━━━━━━━━━━━━━━━━━\n👨‍💻 Creator: @sqosimovv",
+        "welcome": "🎓 *TSUE Timetable Bot*\n\nHello! 👋\n\n📌 Please select a section:",
+        "btn_timetable": "� Timetable",
+        "btn_hemis": "🎓 HEMIS System",
         "btn_bugun": "📅 Today",
         "btn_guruh": "🔍 Select Group",
         "btn_yordam": "ℹ️ Help",
@@ -76,6 +110,8 @@ STRINGS = {
         "btn_notif_on": "✅ Turn ON",
         "btn_notif_off": "❌ Turn OFF",
         "btn_back": "⬅️ Back",
+        "main_menu_text": "🗂 Main Menu:",
+        "timetable_menu_text": "📅 Timetable components:",
         "notif_menu": "🔔 *Notifications Section*\n\nStatus: {}\n\n✨Do you want to receive your timetable automatically every day at 08:00?",
         "notif_status_on": "🟢Enabled",
         "notif_status_off": "🔴Disabled",
@@ -1613,23 +1649,49 @@ def take_timetable_screenshot(guruh):
 
 
 def start(update, context):
-    """Start with language selection"""
-    lang = context.user_data.get("lang")
-    if not lang:
-        return choose_language(update, context)
+    """Start - always show language selection first"""
+    return choose_language(update, context)
 
+
+def main_menu(update, context):
+    """Main Menu: Timetable vs HEMIS"""
+    lang = context.user_data.get("lang", "uz")
     s = STRINGS[lang]
+    
+    keyboard = [
+        [KeyboardButton(s["btn_timetable"]), KeyboardButton(s["btn_hemis"])]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
+    if update.callback_query:
+        update.callback_query.message.reply_text(
+            s["welcome"],
+            parse_mode="Markdown",
+            reply_markup=reply_markup
+        )
+    else:
+        update.message.reply_text(
+            s["welcome"],
+            parse_mode="Markdown",
+            reply_markup=reply_markup
+        )
+
+def timetable_menu(update, context):
+    """Timetable Menu"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    
     keyboard = [
         [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
         [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
-        [KeyboardButton(s["btn_yordam"])],
+        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_back"])],
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
+    
     update.message.reply_text(
-        s["welcome"],
+        s["timetable_menu_text"],
         parse_mode="Markdown",
-        reply_markup=reply_markup,
+        reply_markup=reply_markup
     )
 
 def notif_menu_handler(update, context):
@@ -1719,6 +1781,68 @@ def choose_language(update, context):
     else:
         update.message.reply_text(msg_text, reply_markup=reply_markup)
 
+def main_menu(update, context):
+    """Main Menu: Timetable vs HEMIS"""
+    # If called from callback_query, update is the callback_query
+    # If called from message, update is the update object
+    
+    if hasattr(update, "message"):
+        # update is a CallbackQuery or Update?
+        # CallbackQuery has .message
+        # Update has .message
+        # Let's handle both safely
+        if hasattr(update, "callback_query") and update.callback_query:
+             # It's an update with a callback query? NO.
+             # If passed 'query' (CallbackQuery object) directly:
+             message = update.message
+        elif hasattr(update, "message"):
+             message = update.message
+        else:
+             # Fallback
+             return
+    else:
+         # Maybe passed 'update' but it's a CallbackQuery object?
+         # CallbackQuery has a message attribute
+         message = update.message
+
+    # Get language
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    
+    keyboard = [
+        [KeyboardButton(s["btn_timetable"]), KeyboardButton(s["btn_hemis"])]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
+    # Text
+    text = s["welcome"] # Using welcome text as prompt
+    
+    # Send
+    context.bot.send_message(
+        chat_id=message.chat_id,
+        text=text,
+        parse_mode="Markdown",
+        reply_markup=reply_markup
+    )
+
+def timetable_menu(update, context):
+    """Timetable Menu"""
+    lang = context.user_data.get("lang", "uz")
+    s = STRINGS[lang]
+    
+    keyboard = [
+        [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
+        [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
+        [KeyboardButton(s["btn_yordam"]), KeyboardButton(s["btn_back"])],
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
+    update.message.reply_text(
+        s["timetable_menu_text"],
+        parse_mode="Markdown",
+        reply_markup=reply_markup
+    )
+
 def guruh_tanlash(update, context):
     """Guruhlar"""
     lang = context.user_data.get("lang", "uz")
@@ -1761,18 +1885,7 @@ def callback_handler(update, context):
         query.edit_message_text(s["lang_selected"])
 
         # Show main menu
-        keyboard = [
-            [KeyboardButton(s["btn_bugun"]), KeyboardButton(s["btn_guruh"])],
-            [KeyboardButton(s["btn_notif"]), KeyboardButton(s["btn_lang"])],
-            [KeyboardButton(s["btn_yordam"])],
-        ]
-        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-        context.bot.send_message(
-            chat_id=query.message.chat_id,
-            text=s["welcome"],
-            parse_mode="Markdown",
-            reply_markup=reply_markup
-        )
+        main_menu(query, context)
 
     elif data.startswith("g_"):
         guruh = data[2:]
@@ -1845,16 +1958,24 @@ def message_handler(update, context):
     s = STRINGS[lang]
 
     # Check buttons in all languages to be safe
+    all_timetable = [STRINGS[l]["btn_timetable"] for l in STRINGS]
     all_bugun = [STRINGS[l]["btn_bugun"] for l in STRINGS]
     all_guruh = [STRINGS[l]["btn_guruh"] for l in STRINGS]
     all_yordam = [STRINGS[l]["btn_yordam"] for l in STRINGS]
     all_lang = [STRINGS[l]["btn_lang"] for l in STRINGS]
     all_notif = [STRINGS[l]["btn_notif"] for l in STRINGS]
+    all_hemis = [STRINGS[l]["btn_hemis"] for l in STRINGS]  # HEMIS
     all_notif_on = [STRINGS[l]["btn_notif_on"] for l in STRINGS]
     all_notif_off = [STRINGS[l]["btn_notif_off"] for l in STRINGS]
     all_back = [STRINGS[l]["btn_back"] for l in STRINGS]
 
-    if text in all_bugun:
+    if text in all_timetable:
+        timetable_menu(update, context)
+
+    elif text in all_hemis:
+        hemis_main_menu(update, context)
+
+    elif text in all_bugun:
         bugun_handler(update, context)
 
     elif text in all_guruh:
@@ -1876,7 +1997,7 @@ def message_handler(update, context):
         start(update, context)
 
     elif text in all_back:
-        start(update, context)
+        main_menu(update, context)
 
     elif text in all_yordam:
         update.message.reply_text(
@@ -1967,17 +2088,35 @@ def broadcast(update, context):
 
 
 
+def hemis_callback_handler(update, context):
+    """HEMIS callback handler"""
+    query = update.callback_query
+    data = query.data
+    
+    if data == "hemis_info":
+        hemis_info(update, context)
+    elif data == "hemis_subjects":
+        hemis_subjects(update, context)
+    elif data == "hemis_grades":
+        hemis_grades(update, context)
+    elif data == "hemis_schedule":
+        hemis_schedule(update, context)
+    elif data == "hemis_payment":
+        hemis_payment(update, context)
+    elif data == "hemis_logout":
+        hemis_logout(update, context)
+
+
 def main():
     print("============================================================")
-    print("🎓 TSUE Jadval Bot")
+    print("🎓 TSUE Jadval Bot + HEMIS")
     print(f"📊 {len(GROUP_IDS)} ta guruh/element")
-    print("📸 Screenshot rejimi")
+    print("� HEMIS integratsiyasi")
     print("============================================================")
 
-    from telegram.ext import PicklePersistence
-    persistence = PicklePersistence(filename='bot_data.pickle')
-
-    updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
+    # persistence = PicklePersistence(filename='bot_data.pickle')
+    # updater = Updater(BOT_TOKEN, use_context=True, persistence=persistence)
+    updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
 
     # Restart jobs for users who have them enabled
@@ -1999,11 +2138,27 @@ def main():
                     context={"chat_id": chat_id}
                 )
 
+    # HEMIS Login ConversationHandler
+    hemis_login_handler = ConversationHandler(
+        entry_points=[CallbackQueryHandler(hemis_login_start, pattern="^hemis_login_start$")],
+        states={
+            LOGIN_USERNAME: [MessageHandler(Filters.text & ~Filters.command, hemis_login_username)],
+            LOGIN_PASSWORD: [MessageHandler(Filters.text & ~Filters.command, hemis_login_password)],
+        },
+        fallbacks=[CommandHandler("cancel", lambda u, c: ConversationHandler.END)],
+    )
+
+    dp.add_handler(hemis_login_handler)
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("hemis", hemis_main_menu))
     dp.add_handler(CommandHandler("stats", stats))
     dp.add_handler(CommandHandler("send", broadcast))
     dp.add_handler(CommandHandler("guruh", guruh_tanlash))
+    
+    # Callback handlers
+    dp.add_handler(CallbackQueryHandler(hemis_callback_handler, pattern="^hemis_"))
     dp.add_handler(CallbackQueryHandler(callback_handler))
+    
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, message_handler))
 
     print("✅ Ishga tushdi!")
